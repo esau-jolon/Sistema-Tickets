@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="sistema.tickets.controllers.AddOrderController">
+   <children>
+      <ImageView fitHeight="588.0" fitWidth="828.0" layoutX="-4.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/3415537.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="227.0" layoutY="35.0" prefHeight="36.0" prefWidth="392.0" text="ASIGNAR ORDEN DE ESTADOS" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <TableView layoutX="87.0" layoutY="195.0" prefHeight="335.0" prefWidth="576.0">
+         <columns>
+            <TableColumn prefWidth="66.0" text="Id" />
+            <TableColumn prefWidth="218.0" text="Estado siguiente" />
+            <TableColumn prefWidth="291.0" text="Orden" />
+         </columns>
+      </TableView>
+      <Button layoutX="724.0" layoutY="195.0" mnemonicParsing="false" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="58.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/save.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="725.0" layoutY="289.0" mnemonicParsing="false" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="58.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/delete.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnClose" layoutX="730.0" layoutY="49.0" mnemonicParsing="false" onAction="#btnCloseAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" prefHeight="52.0" prefWidth="63.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="42.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/cross.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Text fill="WHITE" layoutX="103.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estado:" wrappingWidth="235.5498046875">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Text>
+      <ComboBox layoutX="351.0" layoutY="124.0" prefHeight="25.0" prefWidth="197.0" />
+      <Text fill="WHITE" layoutX="103.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estado Principal" wrappingWidth="203.0">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Text>
+      <TextField layoutX="351.0" layoutY="92.0" prefWidth="197.0" />
+   </children>
+</AnchorPane>

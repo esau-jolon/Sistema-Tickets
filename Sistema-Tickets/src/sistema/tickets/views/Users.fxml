@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="567.0" prefWidth="869.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.tickets.controllers.UsersController">
+   <children>
+      <ImageView fitHeight="580.0" fitWidth="869.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/3415537.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="369.0" layoutY="32.0" prefHeight="36.0" prefWidth="131.0" text="USUARIOS" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <TableView layoutX="56.0" layoutY="104.0" prefHeight="433.0" prefWidth="679.0">
+        <columns>
+          <TableColumn prefWidth="50.0" text="Id" />
+          <TableColumn prefWidth="136.0" text="Nombre Completo" />
+            <TableColumn prefWidth="110.0" text="Correo" />
+            <TableColumn minWidth="9.0" prefWidth="91.0" text="Usuario" />
+            <TableColumn prefWidth="91.0" text="Contraseña" />
+            <TableColumn minWidth="8.0" prefWidth="94.0" text="Rol" />
+            <TableColumn minWidth="8.0" prefWidth="106.0" text="Departamento" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnAddUser" layoutX="758.0" layoutY="130.0" mnemonicParsing="false" onAction="#btnAddAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="81.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/add-user.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnEditUser" layoutX="758.0" layoutY="244.0" mnemonicParsing="false" onAction="#btnEditUserAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="81.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/edit%20user.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnDeleteUser" layoutX="758.0" layoutY="357.0" mnemonicParsing="false" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" prefHeight="66.0" prefWidth="0.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="81.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/delete%20user.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnClose" layoutX="799.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnCloseAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" prefHeight="36.0" prefWidth="40.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="40.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/cross.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>

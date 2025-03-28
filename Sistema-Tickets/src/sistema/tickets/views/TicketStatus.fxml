@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="sistema.tickets.controllers.TicketStatusController">
+   <children>
+      <ImageView fitHeight="588.0" fitWidth="828.0" layoutX="-4.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/3415537.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="286.0" layoutY="38.0" prefHeight="36.0" prefWidth="248.0" text="ESTADOS DE TICKET" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <TextField layoutX="87.0" layoutY="155.0" prefHeight="25.0" prefWidth="181.0" />
+      <Text fill="WHITE" layoutX="87.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Text>
+      <TextField layoutX="334.0" layoutY="155.0" prefHeight="25.0" prefWidth="181.0" />
+      <Text fill="WHITE" layoutX="334.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descripción:">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Text>
+      <CheckBox layoutX="579.0" layoutY="153.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="25.0" />
+      <Text fill="WHITE" layoutX="552.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estado Final">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Text>
+      <TableView layoutX="87.0" layoutY="195.0" prefHeight="335.0" prefWidth="576.0">
+         <columns>
+            <TableColumn prefWidth="66.0" text="Id" />
+            <TableColumn prefWidth="151.0" text="Nombre" />
+            <TableColumn prefWidth="236.0" text="Descripcion" />
+            <TableColumn prefWidth="120.0" text="Estado Final" />
+         </columns>
+      </TableView>
+      <Button layoutX="724.0" layoutY="195.0" mnemonicParsing="false" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="58.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/save.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="728.0" layoutY="273.0" mnemonicParsing="false" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="58.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/written-paper.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="724.0" layoutY="442.0" mnemonicParsing="false" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="58.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/delete.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnAddStat" layoutX="724.0" layoutY="352.0" mnemonicParsing="false" onAction="#btnAddStatAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="58.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/duplicate.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnClose" layoutX="730.0" layoutY="49.0" mnemonicParsing="false" onAction="#btnCloseAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" prefHeight="52.0" prefWidth="63.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="42.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/cross.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>

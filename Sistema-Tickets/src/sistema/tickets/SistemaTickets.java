@@ -13,12 +13,14 @@ public class SistemaTickets extends Application {
         launch(args); // Inicia la aplicación JavaFX
     }
 
-    @Override
-    public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/sistema/tickets/views/login.fxml"));
+@Override
+public void start(Stage primaryStage) throws IOException {
+    Parent root = FXMLLoader.load(getClass().getResource("/sistema/tickets/views/Login.fxml"));
 
-        primaryStage.setTitle("Login");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
-    }
+    primaryStage.setTitle("Login");
+    Scene scene = new Scene(root, 900, 600); // Ajusta el tamaño (ancho x alto)
+    primaryStage.setScene(scene);
+    primaryStage.show();
+}
+
 }

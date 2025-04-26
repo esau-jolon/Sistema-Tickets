@@ -9,9 +9,12 @@ package Models;
  * @author esauj
  */
 public class Departamento {
+
     private int id;
     private String nombre;
-    private int idEmpresa;
+    private int id_empresa; // debe coincidir con el nombre en la base de datos
+
+    // Getters y setters
 
     public int getId() {
         return id;
@@ -29,12 +32,11 @@ public class Departamento {
         this.nombre = nombre;
     }
 
-    public int getIdEmpresa() {
-        return idEmpresa;
+    public int getId_empresa() {
+        return id_empresa;
     }
 
-    public void setIdEmpresa(int idEmpresa) {
-        this.idEmpresa = idEmpresa;
+    public void setId_empresa(int id_empresa) {
+        this.id_empresa = id_empresa;
     }
-    
 }

@@ -1,5 +1,6 @@
 package sistema.tickets;
 
+import static conexion.ConexionDB.conectar;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +11,9 @@ import javafx.stage.Stage;
 public class SistemaTickets extends Application {
 
     public static void main(String[] args) {
+           conectar();
         launch(args); // Inicia la aplicación JavaFX
+     
     }
 
 @Override

@@ -9,12 +9,15 @@ package Models;
  * @author esauj
  */
 public class Empresa {
+
     private int id;
     private String nombre;
     private String logo;
     private String idioma;
     private String hora;
-    private String tiempoExpiracion;
+    private String tiempo_expiracion; // mismo nombre que en la BD
+
+    // Getters y setters
 
     public int getId() {
         return id;
@@ -56,13 +59,11 @@ public class Empresa {
         this.hora = hora;
     }
 
-    public String getTiempoExpiracion() {
-        return tiempoExpiracion;
+    public String getTiempo_expiracion() {
+        return tiempo_expiracion;
     }
 
-    public void setTiempoExpiracion(String tiempoExpiracion) {
-        this.tiempoExpiracion = tiempoExpiracion;
+    public void setTiempo_expiracion(String tiempo_expiracion) {
+        this.tiempo_expiracion = tiempo_expiracion;
     }
-    
-
 }

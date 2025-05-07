@@ -9,41 +9,77 @@ package Models;
  * @author esauj
  */
 public abstract class Persona {
-    
+
     private int Id;
     private String Nombre;
     private String Correo;
     private int IdRol;
     private int IdEmpresa;
     private String Contraseña;
-    
-    public abstract void mostrarPerfil();
-    public abstract void agregarUsuario();
-    
-    
-    public int getId() { return Id; }
-    public void setId(int Id) { this.Id = Id; }
+    private Rol rol;
 
-    public String getNombre() { return Nombre; }
-    
+    public abstract void mostrarPerfil();
+
+    public abstract void agregarUsuario();
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int Id) {
+        this.Id = Id;
+    }
+
+    public String getNombre() {
+        return Nombre;
+    }
+
     public void setNombre(String nombre) {
-        if(nombre == null || nombre.isEmpty()) {
+        if (nombre == null || nombre.isEmpty()) {
             throw new IllegalArgumentException("El nombre no puede estar vacío");
         }
         this.Nombre = nombre;
     }
 
-    public String getCorreo() { return Correo; }
-    public void setCorreo(String Correo) { this.Correo = Correo; }
+    public String getCorreo() {
+        return Correo;
+    }
 
-    public int getIdRol() { return IdRol; }
-    public void setIdRol(int IdRol) { this.IdRol = IdRol; }
+    public void setCorreo(String Correo) {
+        this.Correo = Correo;
+    }
 
-    public int getIdEmpresa() { return IdEmpresa; }
-    public void setIdEmpresa(int IdEmpresa) { this.IdEmpresa = IdEmpresa; }
+    public int getIdRol() {
+        return IdRol;
+    }
 
-    public String getContraseña() { return Contraseña; }
-    public void setContraseña(String Contraseña) { this.Contraseña = Contraseña; }
-    
-    
+    public void setIdRol(int IdRol) {
+        this.IdRol = IdRol;
+    }
+
+    public int getIdEmpresa() {
+        return IdEmpresa;
+    }
+
+    public void setIdEmpresa(int IdEmpresa) {
+        this.IdEmpresa = IdEmpresa;
+    }
+
+    public String getContraseña() {
+        return Contraseña;
+    }
+
+    public void setContraseña(String Contraseña) {
+        this.Contraseña = Contraseña;
+    }
+
+    public boolean tienePermiso(String permisoNombre) {
+        if (rol == null || rol.getPermisos() == null) {
+            return false;
+        }
+
+        return rol.getPermisos().stream()
+                .anyMatch(p -> p.getNombre().equalsIgnoreCase(permisoNombre));
+    }
+
 }

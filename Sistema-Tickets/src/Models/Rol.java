@@ -4,6 +4,9 @@
  */
 package Models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author esauj
@@ -12,7 +15,8 @@ public class Rol {
     private int id;
     private String nombre;
     private String descripcion;
-
+    private List<Permiso> permisos = new ArrayList<>();
+    
     public int getId() {
         return id;
     }
@@ -37,4 +41,6 @@ public class Rol {
         this.descripcion = descripcion;
     }
     
+    public List<Permiso> getPermisos() { return permisos; }
+    public void setPermisos(List<Permiso> permisos) { this.permisos = permisos; }
 }

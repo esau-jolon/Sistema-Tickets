@@ -10,55 +10,55 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="433.0" prefWidth="607.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.tickets.controllers.AddEditUserController">
+<AnchorPane id="AnchorPane" prefHeight="579.0" prefWidth="869.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.tickets.controllers.AddEditUserController">
    <children>
-      <ImageView fitHeight="434.0" fitWidth="685.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="580.0" fitWidth="870.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/3415537.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="205.0" layoutY="32.0" prefHeight="36.0" prefWidth="239.0" text="AGREGAR USUARIO" textAlignment="CENTER" textFill="WHITE">
+      <Label layoutX="312.0" layoutY="94.0" prefHeight="36.0" prefWidth="239.0" text="AGREGAR USUARIO" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="System Bold" size="25.0" />
          </font>
       </Label>
-      <TextField layoutX="109.0" layoutY="142.0" prefHeight="25.0" prefWidth="181.0" />
-      <TextField layoutX="357.0" layoutY="142.0" prefHeight="25.0" prefWidth="181.0" />
-      <TextField layoutX="109.0" layoutY="217.0" prefHeight="25.0" prefWidth="181.0" />
-      <Text fill="WHITE" layoutX="109.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombe Completo:">
+      <TextField layoutX="216.0" layoutY="204.0" prefHeight="25.0" prefWidth="181.0" />
+      <TextField layoutX="464.0" layoutY="204.0" prefHeight="25.0" prefWidth="181.0" />
+      <TextField layoutX="216.0" layoutY="279.0" prefHeight="25.0" prefWidth="181.0" />
+      <Text fill="WHITE" layoutX="216.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombe Completo:">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="357.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Correo Electronico:">
+      <Text fill="WHITE" layoutX="464.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Correo Electronico:">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="106.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre de Usuario:">
+      <Text fill="WHITE" layoutX="213.0" layoutY="263.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre de Usuario:">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Text>
-      <TextField layoutX="357.0" layoutY="217.0" prefHeight="25.0" prefWidth="181.0" />
-      <Text fill="WHITE" layoutX="357.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:">
+      <TextField layoutX="464.0" layoutY="279.0" prefHeight="25.0" prefWidth="181.0" />
+      <Text fill="WHITE" layoutX="464.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Text>
-      <ComboBox layoutX="357.0" layoutY="284.0" prefHeight="25.0" prefWidth="181.0" />
-      <Text fill="WHITE" layoutX="109.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rol:">
+      <ComboBox layoutX="464.0" layoutY="346.0" prefHeight="25.0" prefWidth="181.0" />
+      <Text fill="WHITE" layoutX="216.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rol:">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="357.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Departamento (Opcional):">
+      <Text fill="WHITE" layoutX="464.0" layoutY="334.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Departamento (Opcional):">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Text>
-      <ComboBox layoutX="109.0" layoutY="284.0" prefHeight="25.0" prefWidth="181.0" />
-      <Button fx:id="btnClose" layoutX="556.0" layoutY="23.0" mnemonicParsing="false" onAction="#btnCloseAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" prefHeight="52.0" prefWidth="63.0" style="-fx-background-color: transparent;">
+      <ComboBox layoutX="216.0" layoutY="346.0" prefHeight="25.0" prefWidth="181.0" />
+      <Button fx:id="btnClose" layoutX="663.0" layoutY="85.0" mnemonicParsing="false" onAction="#btnCloseAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" prefHeight="52.0" prefWidth="63.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="42.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -67,7 +67,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btnSave" layoutX="412.0" layoutY="336.0" mnemonicParsing="false" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" prefHeight="36.0" prefWidth="126.0" style="-fx-background-color: Green;" text="GUARDAR" textFill="WHITE">
+      <Button fx:id="btnSave" layoutX="519.0" layoutY="398.0" mnemonicParsing="false" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" prefHeight="36.0" prefWidth="126.0" style="-fx-background-color: Green;" text="GUARDAR" textFill="WHITE">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>

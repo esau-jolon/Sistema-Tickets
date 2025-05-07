@@ -15,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import sistema.tickets.Navegador;
 
 /**
  * FXML Controller class
@@ -32,25 +33,12 @@ public class LoginController implements Initializable {
     }    
     
 
-@FXML
-private void btnSesionAction(ActionEvent event) {
-    try {
-        // Cargar la nueva vista
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sistema/tickets/views/Menu.fxml"));
-        Parent root = loader.load();
 
-        // Crear una nueva ventana (Stage)
-        Stage newStage = new Stage();
-        newStage.setScene(new Scene(root));
-        newStage.show();
-        
-        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        currentStage.close();
-        
-    } catch (IOException e) {
-        e.printStackTrace();
+
+   @FXML
+    private void btnSesionAction(ActionEvent event) {
+        Navegador.mostrarVistaCentral("/sistema/tickets/views/Menu.fxml");
     }
-}
 
 
 

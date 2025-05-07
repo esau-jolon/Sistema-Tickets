@@ -4,6 +4,7 @@
  */
 package sistema.tickets.controllers;
 
+import Models.Permiso;
 import Models.Rol;
 import conexion.ConexionDB;
 import java.io.IOException;
@@ -31,6 +32,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import javafx.scene.control.Alert;
+import sistema.tickets.Navegador;
 
 /**
  * FXML Controller class
@@ -70,31 +75,101 @@ public class RolesController implements Initializable {
 
     @FXML
     private void btnPermissionsAction(ActionEvent event) {
-        try {
-            // Cargar la nueva vista
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sistema/tickets/views/AddPermissions.fxml"));
-            Parent root = loader.load();
+        Rol selectedRol = tblRoles.getSelectionModel().getSelectedItem();
 
-            // Crear una nueva ventana (Stage)
-            Stage newStage = new Stage();
-            newStage.setScene(new Scene(root));
-            newStage.show();
+        if (selectedRol == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Selecciona un rol primero.");
+            alert.show();
+            return;
+        }
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        AddPermissionsController controller = Navegador.mostrarVistaCentralConControlador("/sistema/tickets/views/AddPermissions.fxml");
+
+        if (controller != null) {
+            controller.setIdRol(selectedRol.getId());
+            controller.setNombreRol(selectedRol.getNombre());
         }
     }
 
     @FXML
     private void btnCloseAction(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
+        Navegador.volverAlMenu();
     }
 
     @FXML
     private void handleMouseEntered(MouseEvent event) {
         Button sourceButton = (Button) event.getSource();
         sourceButton.setStyle("-fx-background-color: rgba(255, 255, 255, 0.2); -fx-border-color: rgba(255, 255, 255, 0.5); -fx-cursor: hand;");
+    }
+
+    @FXML
+    private void btnEliminarAction(ActionEvent event) {
+        Rol selectedRol = tblRoles.getSelectionModel().getSelectedItem();
+
+        if (selectedRol == null) {
+            JOptionPane.showMessageDialog(null, "Selecciona un rol para eliminar.",
+                    "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (RolesController.tienePermisosAsociados(selectedRol.getId())) {
+            JOptionPane.showMessageDialog(null, "No se puede eliminar este rol porque tiene permisos asociados.",
+                    "Restricción", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(null,
+                "¿Estás seguro de que deseas eliminar el rol \"" + selectedRol.getNombre() + "\"?",
+                "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            boolean eliminado = RolesController.eliminarRolPorId(selectedRol.getId());
+            if (eliminado) {
+                JOptionPane.showMessageDialog(null, "Rol eliminado correctamente.");
+                refrescarTablaRoles();
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo eliminar el rol.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    public static boolean eliminarRolPorId(int idRol) {
+        String sql = "DELETE FROM rol WHERE id = ?";
+
+        try (Connection conn = ConexionDB.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idRol);
+
+            int filasAfectadas = stmt.executeUpdate();
+            return filasAfectadas > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public static boolean tienePermisosAsociados(int idRol) {
+        String sql = "SELECT COUNT(*) FROM rol_Permiso WHERE id_rol = ?";
+
+        try (Connection conn = ConexionDB.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idRol);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    int total = rs.getInt(1);
+                    return total > 0;
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
     @FXML
@@ -118,7 +193,6 @@ public class RolesController implements Initializable {
             int filasAfectadas = stmt.executeUpdate();
             return filasAfectadas > 0;
 
-
         } catch (SQLException e) {
             System.err.println("Error al guardar rol: " + e.getMessage());
             return false;
@@ -127,8 +201,14 @@ public class RolesController implements Initializable {
 
     @FXML
     private void btnGuardarAction(ActionEvent event) {
-        String nombre = txtNombre.getText();
-        String descripcion = txtDescripcion.getText();
+        String nombre = txtNombre.getText().trim();
+        String descripcion = txtDescripcion.getText().trim();
+
+        if (nombre.isEmpty() || descripcion.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Ambos campos son obligatorios.",
+                    "Validación", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
         boolean guardado = RolesController.guardarRol(nombre, descripcion);
 
@@ -136,7 +216,7 @@ public class RolesController implements Initializable {
             JOptionPane.showMessageDialog(null, "Rol guardado correctamente");
             refrescarTablaRoles();
         } else {
-            JOptionPane.showMessageDialog(null, "Error al guardar el rol",
+            JOptionPane.showMessageDialog(null, "Hubo un error al guardar el rol",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -161,7 +241,6 @@ public class RolesController implements Initializable {
                 listaRoles.add(rol);
             }
 
-            // Asignar la lista de roles al TableView
             tblRoles.setItems(listaRoles);
 
         } catch (SQLException e) {
@@ -171,5 +250,51 @@ public class RolesController implements Initializable {
 
     public void refrescarTablaRoles() {
         cargarDatosRoles();
+    }
+
+    public Rol obtenerRolConPermisos(int idRol) {
+        Rol rol = null;
+
+        try (Connection conn = ConexionDB.conectar()) {
+            // 1. Obtener los datos del rol
+            String sqlRol = "SELECT nombre, descripcion FROM rol WHERE id = ?";
+            try (PreparedStatement ps = conn.prepareStatement(sqlRol)) {
+                ps.setInt(1, idRol);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    rol = new Rol();
+                    rol.setId(idRol);
+                    rol.setNombre(rs.getString("nombre"));
+                    rol.setDescripcion(rs.getString("descripcion"));
+                }
+            }
+
+            if (rol != null) {
+                List<Permiso> permisos = new ArrayList<>();
+                String sqlPermisos = """
+                    SELECT p.id, p.nombre, p.descripcion
+                    FROM permiso p
+                    INNER JOIN rol_permiso rp ON p.id = rp.id_permiso
+                    WHERE rp.id_rol = ?
+                """;
+                try (PreparedStatement ps = conn.prepareStatement(sqlPermisos)) {
+                    ps.setInt(1, idRol);
+                    ResultSet rs = ps.executeQuery();
+                    while (rs.next()) {
+                        Permiso permiso = new Permiso();
+                        permiso.setId(rs.getInt("id"));
+                        permiso.setNombre(rs.getString("nombre"));
+                        permiso.setDescripcion(rs.getString("descripcion"));
+                        permisos.add(permiso);
+                    }
+                }
+                rol.setPermisos(permisos);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al obtener el rol con permisos: " + e.getMessage());
+        }
+
+        return rol;
     }
 }

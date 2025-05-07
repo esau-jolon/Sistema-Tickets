@@ -17,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button; // Keep only this Button import
 import javafx.scene.input.MouseEvent; // 
 import javafx.stage.Stage;
+import sistema.tickets.Navegador;
 
 /**
  * FXML Controller class
@@ -34,7 +35,7 @@ public class MenuController implements Initializable {
     }
 
     @FXML
-    private Button btnUsers;  // Asegúrate de que el fx:id del botón sea correcto
+    private Button btnUsers;  
 
     @FXML
     private Button btnLogOut;
@@ -56,10 +57,10 @@ public class MenuController implements Initializable {
 
     @FXML
     private Button btnMisTIckets;
-    
+
     @FXML
     private Button btnResolverTicket;
-    
+
     @FXML
     private Button btnFlujos;
 
@@ -82,29 +83,21 @@ public class MenuController implements Initializable {
 
     @FXML
     private void btnRolesAction(ActionEvent event) {
-        try {
-            // Cargar la nueva vista
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sistema/tickets/views/Roles.fxml"));
-            Parent root = loader.load();
+        Navegador.mostrarVistaCentral("/sistema/tickets/views/Roles.fxml");
+    }
 
-            // Crear una nueva ventana (Stage)
-            Stage newStage = new Stage();
-            newStage.setScene(new Scene(root));
-            newStage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @FXML
+    private void btnDepartamentosAction(ActionEvent event) {
+        Navegador.mostrarVistaCentral("/sistema/tickets/views/Departments.fxml");
     }
 
     @FXML
     private void btnParametersAction(ActionEvent event) {
         try {
-            // Cargar la nueva vista
+    
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/sistema/tickets/views/Parameters.fxml"));
             Parent root = loader.load();
 
-            // Crear una nueva ventana (Stage)
             Stage newStage = new Stage();
             newStage.setScene(new Scene(root));
             newStage.show();
@@ -119,23 +112,6 @@ public class MenuController implements Initializable {
         try {
             // Cargar la nueva vista
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/sistema/tickets/views/Permissions.fxml"));
-            Parent root = loader.load();
-
-            // Crear una nueva ventana (Stage)
-            Stage newStage = new Stage();
-            newStage.setScene(new Scene(root));
-            newStage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void btnDepartamentosAction(ActionEvent event) {
-        try {
-            // Cargar la nueva vista
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sistema/tickets/views/Departments.fxml"));
             Parent root = loader.load();
 
             // Crear una nueva ventana (Stage)
@@ -198,8 +174,8 @@ public class MenuController implements Initializable {
             e.printStackTrace();
         }
     }
-    
-      @FXML
+
+    @FXML
     private void btnFlujosAction(ActionEvent event) {
         try {
             // Cargar la nueva vista

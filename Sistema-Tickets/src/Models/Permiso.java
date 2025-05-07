@@ -12,7 +12,6 @@ public class Permiso {
     private int id;
     private String nombre;
     private String descripcion;
-    private int idRol;
 
     public int getId() {
         return id;
@@ -38,14 +37,4 @@ public class Permiso {
         this.descripcion = descripcion;
     }
 
-    public int getIdRol() {
-        return idRol;
-    }
-
-    public void setIdRol(int idRol) {
-        this.idRol = idRol;
-    }
-    
 }
-
-

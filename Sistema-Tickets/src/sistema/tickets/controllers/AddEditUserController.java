@@ -29,14 +29,13 @@ public class AddEditUserController implements Initializable {
         // TODO
     }    
  
-    
-@FXML
-private void btnCloseAction(ActionEvent event) {
-    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    stage.close();
-}
+    @FXML
+    private void btnCloseAction(ActionEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
+    }
 
-        
+
 
    @FXML
 private void handleMouseEntered(MouseEvent event) {

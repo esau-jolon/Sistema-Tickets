@@ -46,11 +46,11 @@
             </ImageView>
          </graphic>
       </Button>
-      <TableView layoutX="130.0" layoutY="181.0" prefHeight="310.0" prefWidth="588.0">
+      <TableView fx:id="tblPermisos" layoutX="130.0" layoutY="181.0" prefHeight="310.0" prefWidth="588.0">
          <columns>
-            <TableColumn prefWidth="32.0" text="Id" />
-            <TableColumn prefWidth="154.0" text="Permiso" />
-            <TableColumn prefWidth="301.0" text="Descripcion" />
+            <TableColumn fx:id="colId" prefWidth="32.0" text="Id" />
+            <TableColumn fx:id="colPermiso" prefWidth="154.0" text="Permiso" />
+            <TableColumn fx:id="colDescripcion" prefWidth="301.0" text="Descripcion" />
             <TableColumn fx:id="colSeleccion" prefWidth="100.0" text="Seleccionar" />
          </columns>
       </TableView>

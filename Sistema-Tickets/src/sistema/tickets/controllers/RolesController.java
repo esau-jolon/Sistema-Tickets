@@ -178,6 +178,7 @@ public class RolesController implements Initializable {
         sourceButton.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;");
     }
 
+    /*
     public static boolean guardarRol(String nombre, String descripcion) {
         if (nombre == null || nombre.trim().isEmpty()) {
             return false;
@@ -195,6 +196,62 @@ public class RolesController implements Initializable {
 
         } catch (SQLException e) {
             System.err.println("Error al guardar rol: " + e.getMessage());
+            return false;
+        }
+    }
+     */
+    public static boolean guardarRol(String nombre, String descripcion) {
+        if (nombre == null || nombre.trim().isEmpty()) {
+            return false;
+        }
+
+        String sqlInsertRol = "INSERT INTO rol (nombre, descripcion) VALUES (?, ?) RETURNING id";
+        String sqlSelectPermisos = "SELECT id FROM permiso";
+        String sqlInsertRolPermiso = "INSERT INTO rol_permiso (id_rol, id_permiso, stat) VALUES (?, ?, FALSE)";
+
+        try (Connection conn = ConexionDB.conectar()) {
+            conn.setAutoCommit(false); // Inicia la transacción
+
+            // 1. Insertar nuevo rol y obtener el id generado
+            int idRol;
+            try (PreparedStatement stmt = conn.prepareStatement(sqlInsertRol)) {
+                stmt.setString(1, nombre);
+                stmt.setString(2, descripcion);
+
+                try (ResultSet rs = stmt.executeQuery()) {
+                    if (rs.next()) {
+                        idRol = rs.getInt("id");
+                    } else {
+                        conn.rollback();
+                        return false;
+                    }
+                }
+            }
+
+            // 2. Obtener todos los permisos existentes
+            List<Integer> idsPermisos = new ArrayList<>();
+            try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sqlSelectPermisos)) {
+
+                while (rs.next()) {
+                    idsPermisos.add(rs.getInt("id"));
+                }
+            }
+
+            // 3. Insertar en rol_permiso
+            try (PreparedStatement stmt = conn.prepareStatement(sqlInsertRolPermiso)) {
+                for (int idPermiso : idsPermisos) {
+                    stmt.setInt(1, idRol);
+                    stmt.setInt(2, idPermiso);
+                    stmt.addBatch();
+                }
+                stmt.executeBatch();
+            }
+
+            conn.commit(); 
+            return true;
+
+        } catch (SQLException e) {
+            System.err.println("Error al guardar rol con permisos: " + e.getMessage());
             return false;
         }
     }

@@ -11,6 +11,7 @@ package Models;
 public class RolPermiso {
     private int idRol;
     private int idPermiso;
+    private boolean stat;
 
     public int getIdRol() {
         return idRol;
@@ -18,6 +19,13 @@ public class RolPermiso {
 
     public void setIdRol(int idRol) {
         this.idRol = idRol;
+    }
+    
+    public boolean getStat(){
+        return stat;
+    }
+    public void setStat(boolean stat){
+        this.stat = stat;
     }
 
     public int getIdPermiso() {

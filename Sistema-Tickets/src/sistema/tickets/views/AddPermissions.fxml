@@ -13,7 +13,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="579.0" prefWidth="869.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.tickets.controllers.AddPermissionsController">
    <children>
-      <ImageView fitHeight="663.0" fitWidth="941.0" layoutX="-24.0" layoutY="-29.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="655.0" fitWidth="977.0" layoutX="-24.0" layoutY="-29.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/3415537.jpg" />
          </image>

@@ -17,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import sistema.tickets.Navegador;
 
 /**
  * FXML Controller class
@@ -35,25 +36,17 @@ public class ParametersController implements Initializable {
 
     @FXML
     private void btnCloseAction(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
+        Navegador.mostrarVistaCentral("/sistema/tickets/views/Menu.fxml");
+    }
+
+    @FXML
+    private void btnGuardarAction(ActionEvent event) {
+
     }
 
     @FXML
     private void btnPriorityAction(ActionEvent event) {
-        try {
-            // Cargar la nueva vista
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sistema/tickets/views/PriorityLevels.fxml"));
-            Parent root = loader.load();
-
-            // Crear una nueva ventana (Stage)
-            Stage newStage = new Stage();
-            newStage.setScene(new Scene(root));
-            newStage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Navegador.mostrarVistaCentral("/sistema/tickets/views/PriorityLevels.fxml");
     }
 
     @FXML

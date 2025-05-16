@@ -11,7 +11,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="567.0" prefWidth="869.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.tickets.controllers.UsersController">
    <children>
-      <ImageView fitHeight="580.0" fitWidth="869.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="622.0" fitWidth="898.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/3415537.jpg" />
          </image>
@@ -21,49 +21,59 @@
             <Font name="System Bold" size="25.0" />
          </font>
       </Label>
-      <TableView layoutX="56.0" layoutY="104.0" prefHeight="433.0" prefWidth="679.0">
+      <TableView fx:id="tblUsuarios" layoutX="30.0" layoutY="90.0" prefHeight="434.0" prefWidth="746.0">
         <columns>
-          <TableColumn prefWidth="50.0" text="Id" />
-          <TableColumn prefWidth="136.0" text="Nombre Completo" />
-            <TableColumn prefWidth="110.0" text="Correo" />
-            <TableColumn minWidth="9.0" prefWidth="91.0" text="Usuario" />
-            <TableColumn prefWidth="91.0" text="Contraseña" />
-            <TableColumn minWidth="8.0" prefWidth="94.0" text="Rol" />
-            <TableColumn minWidth="8.0" prefWidth="106.0" text="Departamento" />
+          <TableColumn fx:id="colId" prefWidth="38.000003814697266" text="Id" />
+          <TableColumn fx:id="colNombre" prefWidth="120.8000259399414" text="Nombre Completo" />
+            <TableColumn fx:id="colCorreo" prefWidth="112.7999267578125" text="Correo" />
+            <TableColumn fx:id="colUsuario" minWidth="9.0" prefWidth="96.0" text="Usuario" />
+            <TableColumn fx:id="colPassword" prefWidth="91.19998168945312" text="Contraseña" />
+            <TableColumn fx:id="colRol" minWidth="8.0" prefWidth="68.79998779296875" text="Rol" />
+            <TableColumn fx:id="colDepartamento" minWidth="8.0" prefWidth="105.5999755859375" text="Departamento" />
+            <TableColumn fx:id="colStatus" minWidth="8.0" prefWidth="105.5999755859375" text="Estado" />
         </columns>
       </TableView>
-      <Button fx:id="btnAddUser" layoutX="758.0" layoutY="130.0" mnemonicParsing="false" onAction="#btnAddAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
+      <Button fx:id="btnAddUser" layoutX="794.0" layoutY="90.0" mnemonicParsing="false" onAction="#btnAddAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
          <graphic>
-            <ImageView fitHeight="81.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="59.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/add-user.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btnEditUser" layoutX="758.0" layoutY="244.0" mnemonicParsing="false" onAction="#btnEditUserAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
+      <Button fx:id="btnEditUser" layoutX="794.0" layoutY="204.0" mnemonicParsing="false" onAction="#btnEditUserAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
          <graphic>
-            <ImageView fitHeight="81.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="59.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/edit%20user.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btnDeleteUser" layoutX="758.0" layoutY="357.0" mnemonicParsing="false" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" prefHeight="66.0" prefWidth="0.0" style="-fx-background-color: transparent;">
+      <Button fx:id="btnDeleteUser" layoutX="794.0" layoutY="317.0" mnemonicParsing="false" onAction="#btnActionDeleteUser" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" prefHeight="55.0" prefWidth="82.0" style="-fx-background-color: transparent;">
          <graphic>
-            <ImageView fitHeight="81.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="59.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/delete%20user.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btnClose" layoutX="799.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnCloseAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" prefHeight="36.0" prefWidth="40.0" style="-fx-background-color: transparent;">
+      <Button fx:id="btnClose" layoutX="807.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnCloseAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" prefHeight="36.0" prefWidth="40.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="40.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/cross.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnActivarUsuario" layoutX="794.0" layoutY="422.0" mnemonicParsing="false" onAction="#btnActionActivarUsuario" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" prefHeight="55.0" prefWidth="82.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="59.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/active-user.png" />
                </image>
             </ImageView>
          </graphic>

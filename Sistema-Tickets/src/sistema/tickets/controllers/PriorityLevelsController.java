@@ -13,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import sistema.tickets.Navegador;
 
 /**
  * FXML Controller class
@@ -27,26 +28,22 @@ public class PriorityLevelsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
-    @FXML
-    private Button btnLogOut;
-        
-@FXML
-private void btnCloseAction(ActionEvent event) {
-    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    stage.close();
-}
-    
-        @FXML
-private void handleMouseEntered(MouseEvent event) {
-    Button sourceButton = (Button) event.getSource();
-    sourceButton.setStyle("-fx-background-color: rgba(255, 255, 255, 0.2); -fx-border-color: rgba(255, 255, 255, 0.5); -fx-cursor: hand;");
-}
+    }
 
-@FXML
-private void handleMouseExited(MouseEvent event) {
-    Button sourceButton = (Button) event.getSource();
-    sourceButton.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;");
-}
+    @FXML
+    private void btnCloseAction(ActionEvent event) {
+        Navegador.mostrarVistaCentral("/sistema/tickets/views/Parameters.fxml");
+    }
+
+    @FXML
+    private void handleMouseEntered(MouseEvent event) {
+        Button sourceButton = (Button) event.getSource();
+        sourceButton.setStyle("-fx-background-color: rgba(255, 255, 255, 0.2); -fx-border-color: rgba(255, 255, 255, 0.5); -fx-cursor: hand;");
+    }
+
+    @FXML
+    private void handleMouseExited(MouseEvent event) {
+        Button sourceButton = (Button) event.getSource();
+        sourceButton.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;");
+    }
 }

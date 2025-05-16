@@ -50,43 +50,45 @@ import javafx.util.Callback;
  */
 public class AddPermissionsController implements Initializable {
 
-       @FXML private TableView<Permiso> tblPermisos;
-    @FXML private TableColumn<Permiso, Boolean> colSeleccion;
-    @FXML private TableColumn<Permiso, String> colPermiso;
-    @FXML private TableColumn<Permiso, String> colDescripcion;
-    @FXML private TableColumn<Permiso, Integer> colId;
-    @FXML private TextField txtId;
-    @FXML private TextField txtNombre;
+    @FXML
+    private TableView<Permiso> tblPermisos;
+    @FXML
+    private TableColumn<Permiso, Boolean> colSeleccion;
+    @FXML
+    private TableColumn<Permiso, String> colPermiso;
+    @FXML
+    private TableColumn<Permiso, String> colDescripcion;
+    @FXML
+    private TableColumn<Permiso, Integer> colId;
+    @FXML
+    private TextField txtId;
+    @FXML
+    private TextField txtNombre;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Configuración completamente personalizada para el CheckBox
+        
         colSeleccion.setCellValueFactory(new PropertyValueFactory<>("asignado"));
         colSeleccion.setCellFactory(createCheckBoxCellFactory());
+
         
-        // Columnas normales
         colPermiso.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         colDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+
         
-        // Mejorar el rendimiento de la tabla
         tblPermisos.setRowFactory(tv -> {
             TableRow<Permiso> row = new TableRow<>();
             row.setCache(true);
             return row;
         });
+
         
-        // Añadir un manejador específico para el evento de scroll
         tblPermisos.addEventFilter(ScrollEvent.ANY, event -> {
-            // Permitir que el evento continúe, pero asegurar que no haya conflictos
             tblPermisos.requestFocus();
         });
-        
-        // Esto puede ayudar a resolver problemas de repintado
-        tblPermisos.setFixedCellSize(30); // Ajustar al tamaño adecuado
+        tblPermisos.setFixedCellSize(30); 
     }
-
-  
 
     public void setIdRol(int id) {
         txtId.setText(String.valueOf(id));
@@ -99,7 +101,47 @@ public class AddPermissionsController implements Initializable {
 
     @FXML
     private void btnActionGuardar(ActionEvent event) {
+        guardarPermisosDeRol();
+    }
 
+    private void guardarPermisosDeRol() {
+        if (txtId.getText() == null || txtId.getText().trim().isEmpty()) {
+            System.err.println("El campo ID está vacío.");
+            return;
+        }
+
+        int idRol;
+        try {
+            idRol = Integer.parseInt(txtId.getText());
+        } catch (NumberFormatException e) {
+            System.err.println("ID no válido: " + txtId.getText());
+            return;
+        }
+
+        ObservableList<Permiso> permisos = tblPermisos.getItems();
+
+        String updateSQL = "UPDATE rol_permiso SET stat = ? WHERE id_rol = ? AND id_permiso = ?";
+
+        try (Connection conn = ConexionDB.conectar(); PreparedStatement updateStmt = conn.prepareStatement(updateSQL)) {
+
+            conn.setAutoCommit(false); // Iniciar transacción
+
+            for (Permiso permiso : permisos) {
+                updateStmt.setBoolean(1, permiso.isAsignado());
+                updateStmt.setInt(2, idRol);
+                updateStmt.setInt(3, permiso.getId());
+                updateStmt.addBatch();
+            }
+
+            updateStmt.executeBatch();
+            conn.commit();
+
+            System.out.println("Permisos actualizados exitosamente.");
+
+        } catch (SQLException e) {
+            System.err.println("Error al actualizar permisos: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -119,18 +161,16 @@ public class AddPermissionsController implements Initializable {
         sourceButton.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;");
     }
 
-
-    
     // Método personalizado para crear un CellFactory de CheckBox que evite problemas
     private Callback<TableColumn<Permiso, Boolean>, TableCell<Permiso, Boolean>> createCheckBoxCellFactory() {
         return column -> new TableCell<Permiso, Boolean>() {
             private final CheckBox checkBox = new CheckBox();
-            
+
             {
                 // Configurar el CheckBox
                 checkBox.setAlignment(Pos.CENTER);
                 setAlignment(Pos.CENTER);
-                
+
                 // Manejar el clic directamente
                 checkBox.setOnAction(event -> {
                     if (getTableRow() != null && getTableRow().getItem() != null) {
@@ -140,11 +180,11 @@ public class AddPermissionsController implements Initializable {
                     }
                 });
             }
-            
+
             @Override
             protected void updateItem(Boolean item, boolean empty) {
                 super.updateItem(item, empty);
-                
+
                 if (empty || getTableRow() == null || getTableRow().getItem() == null) {
                     setGraphic(null);
                 } else {
@@ -155,15 +195,13 @@ public class AddPermissionsController implements Initializable {
             }
         };
     }
-    
 
-    
     private void cargarPermisosDeRolDesdeTexto() {
         if (txtId.getText() == null || txtId.getText().trim().isEmpty()) {
             System.err.println("El campo ID está vacío.");
             return;
         }
-        
+
         int idRol;
         try {
             idRol = Integer.parseInt(txtId.getText());
@@ -171,7 +209,7 @@ public class AddPermissionsController implements Initializable {
             System.err.println("ID no válido: " + txtId.getText());
             return;
         }
-        
+
         ObservableList<Permiso> listaPermisos = FXCollections.observableArrayList();
         String sql = """
         SELECT
@@ -187,13 +225,12 @@ public class AddPermissionsController implements Initializable {
         WHERE
             rp.id_rol = ?
         """;
-        
-        try (Connection conn = ConexionDB.conectar(); 
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            
+
+        try (Connection conn = ConexionDB.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+
             stmt.setInt(1, idRol);
             ResultSet rs = stmt.executeQuery();
-            
+
             while (rs.next()) {
                 Permiso permiso = new Permiso();
                 permiso.setId(rs.getInt("id_permiso"));
@@ -202,25 +239,25 @@ public class AddPermissionsController implements Initializable {
                 permiso.setAsignado(rs.getBoolean("stat"));
                 listaPermisos.add(permiso);
             }
-            
+
             // Configurar los items en el hilo de la UI
             Platform.runLater(() -> {
                 // Limpiar primero para evitar conflictos
                 tblPermisos.getItems().clear();
                 tblPermisos.refresh();
-                
+
                 // Establecer los nuevos items
                 tblPermisos.setItems(listaPermisos);
-                
+
                 // Ajustar el ScrollBar después de cargar datos
                 configurarScrollBar();
             });
-            
+
         } catch (SQLException e) {
             System.err.println("Error al cargar permisos del rol: " + e.getMessage());
         }
     }
-    
+
     private void configurarScrollBar() {
         Platform.runLater(() -> {
             ScrollBar verticalBar = null;
@@ -229,16 +266,16 @@ public class AddPermissionsController implements Initializable {
                     verticalBar = (ScrollBar) node;
                 }
             }
-            
+
             if (verticalBar != null) {
                 verticalBar.setUnitIncrement(10);
                 verticalBar.setBlockIncrement(50);
-                
+
                 // Añadir listener para debugging
                 verticalBar.valueProperty().addListener((obs, oldVal, newVal) -> {
                     System.out.println("ScrollBar value: " + newVal);
                 });
-                
+
                 // Forzar repintado del ScrollBar
                 verticalBar.setVisible(false);
                 verticalBar.setVisible(true);

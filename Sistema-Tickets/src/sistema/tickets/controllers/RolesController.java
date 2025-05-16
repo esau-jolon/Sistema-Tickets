@@ -7,19 +7,13 @@ package sistema.tickets.controllers;
 import Models.Permiso;
 import Models.Rol;
 import conexion.ConexionDB;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import javafx.collections.FXCollections;
@@ -51,6 +45,9 @@ public class RolesController implements Initializable {
     private TextField txtDescripcion;
 
     @FXML
+    private TextField txtId;
+
+    @FXML
     private TableView<Rol> tblRoles;
 
     @FXML
@@ -68,9 +65,8 @@ public class RolesController implements Initializable {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         colDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
-
-        // Cargar los datos
         cargarDatosRoles();
+        txtId.setEditable(false);
     }
 
     @FXML
@@ -178,88 +174,84 @@ public class RolesController implements Initializable {
         sourceButton.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;");
     }
 
-    /*
-    public static boolean guardarRol(String nombre, String descripcion) {
+    public static boolean guardarRol(Integer id, String nombre, String descripcion) {
         if (nombre == null || nombre.trim().isEmpty()) {
             return false;
         }
-
-        String sql = "INSERT INTO rol (nombre, descripcion) VALUES (?, ?)";
-
-        try (Connection conn = ConexionDB.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setString(1, nombre);
-            stmt.setString(2, descripcion);
-
-            int filasAfectadas = stmt.executeUpdate();
-            return filasAfectadas > 0;
-
-        } catch (SQLException e) {
-            System.err.println("Error al guardar rol: " + e.getMessage());
-            return false;
-        }
-    }
-     */
-    public static boolean guardarRol(String nombre, String descripcion) {
-        if (nombre == null || nombre.trim().isEmpty()) {
-            return false;
-        }
-
-        String sqlInsertRol = "INSERT INTO rol (nombre, descripcion) VALUES (?, ?) RETURNING id";
-        String sqlSelectPermisos = "SELECT id FROM permiso";
-        String sqlInsertRolPermiso = "INSERT INTO rol_permiso (id_rol, id_permiso, stat) VALUES (?, ?, FALSE)";
 
         try (Connection conn = ConexionDB.conectar()) {
-            conn.setAutoCommit(false); // Inicia la transacción
+            conn.setAutoCommit(false);
 
-            // 1. Insertar nuevo rol y obtener el id generado
-            int idRol;
-            try (PreparedStatement stmt = conn.prepareStatement(sqlInsertRol)) {
-                stmt.setString(1, nombre);
-                stmt.setString(2, descripcion);
+            if (id == null || id == 0) {
 
-                try (ResultSet rs = stmt.executeQuery()) {
-                    if (rs.next()) {
-                        idRol = rs.getInt("id");
-                    } else {
-                        conn.rollback();
-                        return false;
+                String sqlInsertRol = "INSERT INTO rol (nombre, descripcion) VALUES (?, ?) RETURNING id";
+                String sqlSelectPermisos = "SELECT id FROM permiso";
+                String sqlInsertRolPermiso = "INSERT INTO rol_permiso (id_rol, id_permiso, stat) VALUES (?, ?, FALSE)";
+
+                int idRol;
+                try (PreparedStatement stmt = conn.prepareStatement(sqlInsertRol)) {
+                    stmt.setString(1, nombre);
+                    stmt.setString(2, descripcion);
+                    try (ResultSet rs = stmt.executeQuery()) {
+                        if (rs.next()) {
+                            idRol = rs.getInt("id");
+                        } else {
+                            conn.rollback();
+                            return false;
+                        }
                     }
                 }
-            }
 
-            // 2. Obtener todos los permisos existentes
-            List<Integer> idsPermisos = new ArrayList<>();
-            try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sqlSelectPermisos)) {
+                List<Integer> permisos = new ArrayList<>();
+                try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sqlSelectPermisos)) {
+                    while (rs.next()) {
+                        permisos.add(rs.getInt("id"));
+                    }
+                }
 
-                while (rs.next()) {
-                    idsPermisos.add(rs.getInt("id"));
+                try (PreparedStatement stmt = conn.prepareStatement(sqlInsertRolPermiso)) {
+                    for (int permisoId : permisos) {
+                        stmt.setInt(1, idRol);
+                        stmt.setInt(2, permisoId);
+                        stmt.addBatch();
+                    }
+                    stmt.executeBatch();
+                }
+
+            } else {
+
+                String sqlUpdateRol = "UPDATE rol SET nombre = ?, descripcion = ? WHERE id = ?";
+                try (PreparedStatement stmt = conn.prepareStatement(sqlUpdateRol)) {
+                    stmt.setString(1, nombre);
+                    stmt.setString(2, descripcion);
+                    stmt.setInt(3, id);
+                    stmt.executeUpdate();
                 }
             }
 
-            // 3. Insertar en rol_permiso
-            try (PreparedStatement stmt = conn.prepareStatement(sqlInsertRolPermiso)) {
-                for (int idPermiso : idsPermisos) {
-                    stmt.setInt(1, idRol);
-                    stmt.setInt(2, idPermiso);
-                    stmt.addBatch();
-                }
-                stmt.executeBatch();
-            }
-
-            conn.commit(); 
+            conn.commit();
             return true;
 
         } catch (SQLException e) {
-            System.err.println("Error al guardar rol con permisos: " + e.getMessage());
+            System.err.println("Error al guardar o actualizar el rol: " + e.getMessage());
             return false;
         }
     }
 
+    
+    
     @FXML
     private void btnGuardarAction(ActionEvent event) {
         String nombre = txtNombre.getText().trim();
         String descripcion = txtDescripcion.getText().trim();
+        String idTexto = txtId.getText().trim();
+        Integer id = 0;
+
+        try {
+            id = idTexto.isEmpty() ? 0 : Integer.parseInt(idTexto);
+        } catch (NumberFormatException e) {
+            id = 0;
+        }
 
         if (nombre.isEmpty() || descripcion.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Ambos campos son obligatorios.",
@@ -267,15 +259,72 @@ public class RolesController implements Initializable {
             return;
         }
 
-        boolean guardado = RolesController.guardarRol(nombre, descripcion);
+        boolean guardado = RolesController.guardarRol(id, nombre, descripcion);
 
         if (guardado) {
             JOptionPane.showMessageDialog(null, "Rol guardado correctamente");
             refrescarTablaRoles();
+            limpiarCampos(); 
         } else {
             JOptionPane.showMessageDialog(null, "Hubo un error al guardar el rol",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    private void limpiarCampos() {
+        txtId.clear();
+        txtNombre.clear();
+        txtDescripcion.clear();
+    }
+
+    @FXML
+    private void btnEditarAction(ActionEvent event) {
+        // Obtener el rol seleccionado de la tabla
+        Rol rolSeleccionado = tblRoles.getSelectionModel().getSelectedItem();
+
+        if (rolSeleccionado == null) {
+            JOptionPane.showMessageDialog(null, "Por favor selecciona un rol de la tabla.",
+                    "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int id = rolSeleccionado.getId(); // Asegúrate de tener un método getId() en Rol
+
+        // Aquí llamas a tu función que busca en la BD por ID
+        Rol rolBD = RolesController.buscarRolPorId(id); // Debes tener este método
+
+        if (rolBD != null) {
+            // Cargar los datos a los campos de texto
+            txtId.setText(String.valueOf(rolBD.getId()));
+            txtNombre.setText(rolBD.getNombre());
+            txtDescripcion.setText(rolBD.getDescripcion());
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontró el rol en la base de datos.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public static Rol buscarRolPorId(int id) {
+        Rol rol = null;
+        String sql = "SELECT id, nombre, descripcion FROM rol WHERE id = ?";
+
+        try (Connection conn = ConexionDB.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                rol = new Rol(); // Usamos constructor vacío
+                rol.setId(rs.getInt("id"));
+                rol.setNombre(rs.getString("nombre"));
+                rol.setDescripcion(rs.getString("descripcion"));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al buscar rol por ID: " + e.getMessage());
+        }
+
+        return rol;
     }
 
     private void cargarDatosRoles() {
@@ -354,4 +403,5 @@ public class RolesController implements Initializable {
 
         return rol;
     }
+
 }

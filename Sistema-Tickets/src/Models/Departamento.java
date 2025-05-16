@@ -13,8 +13,16 @@ public class Departamento {
     private int id;
     private String nombre;
     private int id_empresa; // debe coincidir con el nombre en la base de datos
-
+    private String descripcion;
     // Getters y setters
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
     public int getId() {
         return id;

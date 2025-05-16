@@ -35,7 +35,7 @@ public class MenuController implements Initializable {
     }
 
     @FXML
-    private Button btnUsers;  
+    private Button btnUsers;
 
     @FXML
     private Button btnLogOut;
@@ -66,19 +66,7 @@ public class MenuController implements Initializable {
 
     @FXML
     private void btnUsersAction(ActionEvent event) {
-        try {
-            // Cargar la nueva vista
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sistema/tickets/views/Users.fxml"));
-            Parent root = loader.load();
-
-            // Crear una nueva ventana (Stage)
-            Stage newStage = new Stage();
-            newStage.setScene(new Scene(root));
-            newStage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Navegador.mostrarVistaCentral("/sistema/tickets/views/Users.fxml");
     }
 
     @FXML
@@ -93,35 +81,12 @@ public class MenuController implements Initializable {
 
     @FXML
     private void btnParametersAction(ActionEvent event) {
-        try {
-    
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sistema/tickets/views/Parameters.fxml"));
-            Parent root = loader.load();
-
-            Stage newStage = new Stage();
-            newStage.setScene(new Scene(root));
-            newStage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Navegador.mostrarVistaCentral("/sistema/tickets/views/Parameters.fxml");
     }
 
     @FXML
     private void btnPermisosAction(ActionEvent event) {
-        try {
-            // Cargar la nueva vista
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sistema/tickets/views/Permissions.fxml"));
-            Parent root = loader.load();
-
-            // Crear una nueva ventana (Stage)
-            Stage newStage = new Stage();
-            newStage.setScene(new Scene(root));
-            newStage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Navegador.mostrarVistaCentral("/sistema/tickets/views/Permissions.fxml");
     }
 
     @FXML
@@ -194,23 +159,7 @@ public class MenuController implements Initializable {
 
     @FXML
     private void btnLogOutAction(ActionEvent event) {
-        try {
-            // Cargar la vista del Login
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sistema/tickets/views/Login.fxml"));
-            Parent root = loader.load();
-
-            // Crear una nueva ventana (Stage) para el login
-            Stage loginStage = new Stage();
-            loginStage.setScene(new Scene(root));
-            loginStage.show();
-
-            // Cerrar la ventana actual (Menú)
-            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            currentStage.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Navegador.mostrarVistaCentral("/sistema/tickets/views/Login.fxml");
     }
 
     @FXML

@@ -51,7 +51,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="779.0" layoutY="283.0" mnemonicParsing="false" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
+      <Button fx:id="btnEditar" layoutX="779.0" layoutY="283.0" mnemonicParsing="false" onAction="#btnEditarAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="58.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -87,5 +87,6 @@
             </ImageView>
          </graphic>
       </Button>
+      <TextField fx:id="txtId" layoutX="83.0" layoutY="152.0" prefHeight="25.0" prefWidth="26.0" />
    </children>
 </AnchorPane>

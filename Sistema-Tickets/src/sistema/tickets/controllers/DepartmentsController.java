@@ -4,9 +4,18 @@
  */
 package sistema.tickets.controllers;
 
+import Models.Departamento;
+import Models.Rol;
+import conexion.ConexionDB;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,8 +24,13 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import sistema.tickets.Navegador;
 
 /**
  * FXML Controller class
@@ -30,13 +44,34 @@ public class DepartmentsController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        colDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
+        cargarDatos();
     }
 
     @FXML
+    private TextField txtNombre;
+
+    @FXML
+    private TextField txtDescripcion;
+
+    @FXML
+    private TextField txtId;
+
+    @FXML
+    private TableView<Departamento> tblDepartamentos;
+
+    @FXML
+    private TableColumn<Departamento, Integer> colId;
+    @FXML
+    private TableColumn<Departamento, String> colNombre;
+    @FXML
+    private TableColumn<Departamento, String> colDescripcion;
+
+    @FXML
     private void btnCloseAction(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
+        Navegador.volverAlMenu();
     }
 
     @FXML
@@ -65,6 +100,33 @@ public class DepartmentsController implements Initializable {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void cargarDatos() {
+        ObservableList<Departamento> listaDepartamentos = FXCollections.observableArrayList();
+
+        String sql = "SELECT id, nombre, descripcion FROM departamento";
+
+        try (Connection conn = ConexionDB.conectar(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String nombre = rs.getString("nombre");
+                String descripcion = rs.getString("descripcion");
+
+                Departamento depart = new Departamento();
+                depart.setId(id);
+                depart.setNombre(nombre);
+                depart.setDescripcion(descripcion);
+
+                listaDepartamentos.add(depart);
+            }
+
+            tblDepartamentos.setItems(listaDepartamentos);
+
+        } catch (SQLException e) {
+            System.err.println("Error al cargar roles: " + e.getMessage());
         }
     }
 

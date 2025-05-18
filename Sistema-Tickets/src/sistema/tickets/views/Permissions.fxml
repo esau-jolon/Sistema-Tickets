@@ -23,26 +23,26 @@
             <Font name="System Bold" size="25.0" />
          </font>
       </Label>
-      <TextField layoutX="106.0" layoutY="161.0" prefHeight="25.0" prefWidth="181.0" />
-      <Text fill="WHITE" layoutX="106.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:">
+      <TextField fx:id="txtNombre" layoutX="146.0" layoutY="154.0" prefHeight="25.0" prefWidth="181.0" />
+      <Text fill="WHITE" layoutX="146.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Text>
-      <TextField layoutX="353.0" layoutY="161.0" prefHeight="25.0" prefWidth="181.0" />
-      <Text fill="WHITE" layoutX="353.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descripción:">
+      <TextField fx:id="txtDescripcion" layoutX="402.0" layoutY="154.0" prefHeight="25.0" prefWidth="312.0" />
+      <Text fill="WHITE" layoutX="404.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descripción:">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Text>
-      <TableView fx:id="tblPermisos" layoutX="106.0" layoutY="211.0" prefHeight="335.0" prefWidth="576.0">
+      <TableView fx:id="tblPermisos" layoutX="87.0" layoutY="208.0" prefHeight="335.0" prefWidth="671.0">
          <columns>
-            <TableColumn fx:id="colId" prefWidth="66.0" text="Id" />
-            <TableColumn fx:id="colNombre" prefWidth="218.0" text="Nombre del Permiso" />
-            <TableColumn fx:id="colDescripcion" prefWidth="291.0" text="Descripcion" />
+            <TableColumn fx:id="colId" prefWidth="58.0" text="Id" />
+            <TableColumn fx:id="colNombre" prefWidth="268.0" text="Nombre del Permiso" />
+            <TableColumn fx:id="colDescripcion" prefWidth="344.0" text="Descripcion" />
          </columns>
       </TableView>
-      <Button layoutX="738.0" layoutY="199.0" mnemonicParsing="false" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
+      <Button fx:id="btnGuardar" layoutX="803.0" layoutY="191.0" mnemonicParsing="false" onAction="#btnGuardarAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="58.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -51,7 +51,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="738.0" layoutY="299.0" mnemonicParsing="false" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" prefHeight="66.0" prefWidth="88.0" style="-fx-background-color: transparent;">
+      <Button fx:id="btnEditar" layoutX="803.0" layoutY="291.0" mnemonicParsing="false" onAction="#btnEditarAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" prefHeight="66.0" prefWidth="88.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="58.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -60,7 +60,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="738.0" layoutY="395.0" mnemonicParsing="false" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
+      <Button fx:id="btnEliminar" layoutX="803.0" layoutY="387.0" mnemonicParsing="false" onAction="#btnEliminarAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="58.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -69,7 +69,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btnClose" layoutX="744.0" layoutY="32.0" mnemonicParsing="false" onAction="#btnCloseAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" prefHeight="52.0" prefWidth="63.0" style="-fx-background-color: transparent;">
+      <Button fx:id="btnClose" layoutX="809.0" layoutY="24.0" mnemonicParsing="false" onAction="#btnCloseAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" prefHeight="52.0" prefWidth="63.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="42.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -78,5 +78,6 @@
             </ImageView>
          </graphic>
       </Button>
+      <TextField fx:id="txtId" layoutX="87.0" layoutY="154.0" prefHeight="25.0" prefWidth="27.0" />
    </children>
 </AnchorPane>

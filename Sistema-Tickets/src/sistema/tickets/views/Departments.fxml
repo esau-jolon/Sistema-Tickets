@@ -42,7 +42,7 @@
             <TableColumn fx:id="colDescripcion" prefWidth="291.0" text="Descripcion" />
          </columns>
       </TableView>
-      <Button layoutX="714.0" layoutY="185.0" mnemonicParsing="false" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
+      <Button fx:id="btnGuardar" layoutX="714.0" layoutY="185.0" mnemonicParsing="false" onAction="#btnGuardarAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="58.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -51,7 +51,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="718.0" layoutY="263.0" mnemonicParsing="false" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
+      <Button fx:id="btnEditar" layoutX="718.0" layoutY="263.0" mnemonicParsing="false" onAction="#btnEditarAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="58.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -60,7 +60,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="714.0" layoutY="432.0" mnemonicParsing="false" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
+      <Button fx:id="btnEliminar" layoutX="714.0" layoutY="432.0" mnemonicParsing="false" onAction="#btnEliminarAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="58.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -87,6 +87,6 @@
             </ImageView>
          </graphic>
       </Button>
-      <TextField layoutX="77.0" layoutY="145.0" prefHeight="26.0" prefWidth="23.0" />
+      <TextField fx:id="txtId" layoutX="77.0" layoutY="145.0" prefHeight="26.0" prefWidth="23.0" />
    </children>
 </AnchorPane>

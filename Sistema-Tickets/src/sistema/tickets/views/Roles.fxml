@@ -36,7 +36,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Text>
-      <TextField fx:id="txtDescripcion" layoutX="366.0" layoutY="152.0" prefHeight="25.0" prefWidth="181.0" />
+      <TextField fx:id="txtDescripcion" layoutX="366.0" layoutY="152.0" prefHeight="25.0" prefWidth="308.0" />
       <Text fill="WHITE" layoutX="366.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descripción:">
          <font>
             <Font name="System Bold" size="18.0" />

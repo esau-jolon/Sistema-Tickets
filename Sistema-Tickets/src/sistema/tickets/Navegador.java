@@ -10,6 +10,7 @@ package sistema.tickets;
  */
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import sistema.tickets.controllers.MainLayoutController;
 
@@ -37,4 +38,11 @@ public class Navegador {
         }
         return null;
     }
+
+    public static void mostrarVistaCentral(Node vista) {
+        if (controlador != null) {
+            controlador.setVistaCentral(vista);
+        }
+    }
+
 }

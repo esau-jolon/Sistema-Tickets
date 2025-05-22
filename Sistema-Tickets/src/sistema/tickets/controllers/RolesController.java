@@ -279,7 +279,7 @@ public class RolesController implements Initializable {
 
     @FXML
     private void btnEditarAction(ActionEvent event) {
-        // Obtener el rol seleccionado de la tabla
+    
         Rol rolSeleccionado = tblRoles.getSelectionModel().getSelectedItem();
 
         if (rolSeleccionado == null) {
@@ -288,10 +288,10 @@ public class RolesController implements Initializable {
             return;
         }
 
-        int id = rolSeleccionado.getId(); // Asegúrate de tener un método getId() en Rol
+        int id = rolSeleccionado.getId();
 
-        // Aquí llamas a tu función que busca en la BD por ID
-        Rol rolBD = RolesController.buscarRolPorId(id); // Debes tener este método
+   
+        Rol rolBD = RolesController.buscarRolPorId(id); 
 
         if (rolBD != null) {
             // Cargar los datos a los campos de texto

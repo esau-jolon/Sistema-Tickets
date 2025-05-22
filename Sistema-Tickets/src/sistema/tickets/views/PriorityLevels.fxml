@@ -13,16 +13,16 @@
 
 <AnchorPane id="AnchorPane" prefHeight="567.0" prefWidth="869.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.tickets.controllers.PriorityLevelsController">
    <children>
-      <ImageView fitHeight="664.0" fitWidth="960.0" layoutY="-36.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="664.0" fitWidth="960.0" layoutY="-30.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/3415537.jpg" />
          </image>
       </ImageView>
-      <TableView layoutX="137.0" layoutY="217.0" prefHeight="292.0" prefWidth="517.0">
+      <TableView fx:id="tblPrioridades" layoutX="137.0" layoutY="217.0" prefHeight="292.0" prefWidth="517.0">
          <columns>
-            <TableColumn prefWidth="54.0" text="ID" />
-            <TableColumn prefWidth="215.0" text="Nombre" />
-            <TableColumn prefWidth="247.0" text="Descripcion" />
+            <TableColumn fx:id="colId" prefWidth="54.0" text="ID" />
+            <TableColumn fx:id="colNombre" prefWidth="215.0" text="Nombre" />
+            <TableColumn fx:id="colDescripcion" prefWidth="247.0" text="Descripcion" />
          </columns>
       </TableView>
       <Label layoutX="304.0" layoutY="40.0" prefHeight="36.0" prefWidth="241.0" text="Niveles de Prioridad" textAlignment="CENTER" textFill="WHITE">
@@ -30,19 +30,19 @@
             <Font name="System Bold" size="25.0" />
          </font>
       </Label>
-      <TextField layoutX="129.0" layoutY="157.0" prefHeight="25.0" prefWidth="181.0" />
+      <TextField fx:id="txtNombre" layoutX="129.0" layoutY="157.0" prefHeight="25.0" prefWidth="181.0" />
       <Text fill="WHITE" layoutX="129.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Text>
-      <TextField layoutX="360.0" layoutY="157.0" prefHeight="25.0" prefWidth="181.0" />
+      <TextField fx:id="txtDescripcion" layoutX="360.0" layoutY="157.0" prefHeight="26.0" prefWidth="295.0" />
       <Text fill="WHITE" layoutX="360.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descripción:">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Text>
-      <Button layoutX="765.0" layoutY="195.0" mnemonicParsing="false" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
+      <Button fx:id="btnGuardar" layoutX="765.0" layoutY="195.0" mnemonicParsing="false" onAction="#btnGuardarAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="58.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -51,20 +51,11 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="773.0" layoutY="319.0" mnemonicParsing="false" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
+      <Button fx:id="btnEditar" layoutX="773.0" layoutY="319.0" mnemonicParsing="false" onAction="#btnEditarAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="58.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/written-paper.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Button layoutX="765.0" layoutY="443.0" mnemonicParsing="false" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
-         <graphic>
-            <ImageView fitHeight="58.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/delete.png" />
                </image>
             </ImageView>
          </graphic>
@@ -78,5 +69,7 @@
             </ImageView>
          </graphic>
       </Button>
+      <TextField fx:id="txtIdEmpresa" layoutX="129.0" layoutY="84.0" prefHeight="26.0" prefWidth="36.0" />
+      <TextField fx:id="txtIdPrioridad" layoutX="195.0" layoutY="84.0" prefHeight="26.0" prefWidth="36.0" />
    </children>
 </AnchorPane>

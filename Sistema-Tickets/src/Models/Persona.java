@@ -135,6 +135,7 @@ public abstract class Persona {
         }
     }
 
+    
     public static Persona buscarPorId(int id) {
         String sql = """
         SELECT u.id AS idPersona, u.id_rol, u.nombre, u.correo, u.user, u.contrasenia,

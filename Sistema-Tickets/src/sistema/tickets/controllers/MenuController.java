@@ -14,7 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button; // Keep only this Button import
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent; // 
 import javafx.stage.Stage;
 import sistema.tickets.Navegador;
@@ -31,7 +31,7 @@ public class MenuController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+  
     }
 
     @FXML
@@ -91,19 +91,8 @@ public class MenuController implements Initializable {
 
     @FXML
     private void btnStatusAction(ActionEvent event) {
-        try {
-            // Cargar la nueva vista
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sistema/tickets/views/TicketStatus.fxml"));
-            Parent root = loader.load();
 
-            // Crear una nueva ventana (Stage)
-            Stage newStage = new Stage();
-            newStage.setScene(new Scene(root));
-            newStage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Navegador.mostrarVistaCentral("/sistema/tickets/views/TicketStatus.fxml");
     }
 
     @FXML

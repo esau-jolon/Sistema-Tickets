@@ -32,6 +32,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import sistema.tickets.Navegador;
 
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.sql.SQLException;
+import java.sql.PreparedStatement;
+import javax.swing.JOptionPane;
+
 /**
  * FXML Controller class
  *
@@ -47,6 +53,7 @@ public class DepartmentsController implements Initializable {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         colDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
+        txtId.setEditable(false);
         cargarDatos();
     }
 
@@ -72,6 +79,226 @@ public class DepartmentsController implements Initializable {
     @FXML
     private void btnCloseAction(ActionEvent event) {
         Navegador.volverAlMenu();
+    }
+
+    @FXML
+    private void btnGuardarAction(ActionEvent event) {
+        String nombre = txtNombre.getText().trim();
+        String descripcion = txtDescripcion.getText().trim();
+        String idTexto = txtId.getText().trim();
+        int idEmpresa = 1; 
+
+        if (nombre.isEmpty() || descripcion.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor completa todos los campos.",
+                    "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (!idTexto.isEmpty()) {
+
+            int id = Integer.parseInt(idTexto);
+            String sqlUpdate = "UPDATE departamento SET nombre = ?, descripcion = ?, id_empresa = ? WHERE id = ?";
+
+            try (Connection conn = ConexionDB.conectar(); PreparedStatement pstmt = conn.prepareStatement(sqlUpdate)) {
+
+                pstmt.setString(1, nombre);
+                pstmt.setString(2, descripcion);
+                pstmt.setInt(3, idEmpresa);
+                pstmt.setInt(4, id);
+
+                int filasActualizadas = pstmt.executeUpdate();
+                if (filasActualizadas > 0) {
+                    JOptionPane.showMessageDialog(null, "Departamento actualizado correctamente.");
+                    limpiarCampos();
+                    cargarDatos();
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se pudo actualizar el departamento.",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+            } catch (SQLException e) {
+                System.err.println("Error al actualizar: " + e.getMessage());
+            }
+
+        } else {
+
+            String sqlInsert = "INSERT INTO departamento (nombre, descripcion, id_empresa) VALUES (?, ?, ?) RETURNING id";
+
+            try (Connection conn = ConexionDB.conectar(); PreparedStatement pstmt = conn.prepareStatement(sqlInsert)) {
+
+                pstmt.setString(1, nombre);
+                pstmt.setString(2, descripcion);
+                pstmt.setInt(3, idEmpresa);
+
+                ResultSet rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    int idDepartamento = rs.getInt("id");
+
+                    String nombreCola = nombre + " - cola de atención";
+                    String sqlInsertCola = "INSERT INTO cola_atencion (id_departamento, nombre) VALUES (?, ?)";
+
+                    try (PreparedStatement pstmtCola = conn.prepareStatement(sqlInsertCola)) {
+                        pstmtCola.setInt(1, idDepartamento);
+                        pstmtCola.setString(2, nombreCola);
+                        pstmtCola.executeUpdate();
+                    }
+
+                    JOptionPane.showMessageDialog(null, "Departamento y cola de atención creados correctamente.");
+                    limpiarCampos();
+                    cargarDatos();
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se pudo crear el departamento.",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+            } catch (SQLException e) {
+                System.err.println("Error al insertar departamento o cola: " + e.getMessage());
+            }
+        }
+    }
+
+    private void limpiarCampos() {
+        txtId.clear();
+        txtNombre.clear();
+        txtDescripcion.clear();
+        tblDepartamentos.getSelectionModel().clearSelection();
+    }
+
+    @FXML
+    private void btnEliminarAction(ActionEvent event) {
+        Departamento deptoSeleccionado = tblDepartamentos.getSelectionModel().getSelectedItem();
+
+        if (deptoSeleccionado == null) {
+            JOptionPane.showMessageDialog(null, "Por favor selecciona un departamento de la tabla.",
+                    "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int idDepartamento = deptoSeleccionado.getId();
+
+    
+        String sqlVerificarTickets = "SELECT COUNT(*) FROM ticket WHERE id_departamento = ?";
+        try (Connection conn = ConexionDB.conectar(); PreparedStatement pstmtTickets = conn.prepareStatement(sqlVerificarTickets)) {
+
+            pstmtTickets.setInt(1, idDepartamento);
+            ResultSet rsTickets = pstmtTickets.executeQuery();
+
+            if (rsTickets.next() && rsTickets.getInt(1) > 0) {
+                JOptionPane.showMessageDialog(null, "No se puede eliminar el departamento porque tiene tickets en cola.",
+                        "Información", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al verificar tickets: " + e.getMessage());
+            return;
+        }
+
+        String sqlVerificarPersonas = "SELECT COUNT(*) FROM persona WHERE id_departamento = ?";
+        try (Connection conn = ConexionDB.conectar(); PreparedStatement pstmtVerificar = conn.prepareStatement(sqlVerificarPersonas)) {
+
+            pstmtVerificar.setInt(1, idDepartamento);
+            ResultSet rs = pstmtVerificar.executeQuery();
+
+            if (rs.next() && rs.getInt(1) > 0) {
+                JOptionPane.showMessageDialog(null, "No se puede eliminar el departamento porque tiene usuarios asignados.",
+                        "Información", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al verificar personas asignadas: " + e.getMessage());
+            return;
+        }
+
+        int confirmacion = JOptionPane.showConfirmDialog(null,
+                "¿Estás seguro de que deseas eliminar este departamento?",
+                "Confirmación", JOptionPane.YES_NO_OPTION);
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            String sqlEliminarCola = "DELETE FROM cola_atencion WHERE id_departamento = ?";
+            String sqlEliminarDepartamento = "DELETE FROM departamento WHERE id = ?";
+
+            try (Connection conn = ConexionDB.conectar()) {
+                conn.setAutoCommit(false); 
+
+            
+                try (PreparedStatement pstmtCola = conn.prepareStatement(sqlEliminarCola)) {
+                    pstmtCola.setInt(1, idDepartamento);
+                    pstmtCola.executeUpdate();
+                }
+
+           
+                try (PreparedStatement pstmtEliminar = conn.prepareStatement(sqlEliminarDepartamento)) {
+                    pstmtEliminar.setInt(1, idDepartamento);
+                    int filasEliminadas = pstmtEliminar.executeUpdate();
+
+                    if (filasEliminadas > 0) {
+                        conn.commit();
+                        JOptionPane.showMessageDialog(null, "Departamento eliminado correctamente.");
+                        limpiarCampos();
+                        cargarDatos();
+                    } else {
+                        conn.rollback();
+                        JOptionPane.showMessageDialog(null, "No se pudo eliminar el departamento.",
+                                "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+
+            } catch (SQLException e) {
+                System.err.println("Error al eliminar: " + e.getMessage());
+            }
+        }
+    }
+
+    @FXML
+    private void btnEditarAction(ActionEvent event) {
+   
+        Departamento deptoSeleccionado = tblDepartamentos.getSelectionModel().getSelectedItem();
+
+        if (deptoSeleccionado == null) {
+            JOptionPane.showMessageDialog(null, "Por favor selecciona un departamento de la tabla.",
+                    "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int id = deptoSeleccionado.getId(); 
+
+    
+        Departamento deptoBD = buscarDepartamentoPorId(id); 
+
+        if (deptoBD != null) {
+         
+            txtId.setText(String.valueOf(deptoBD.getId()));
+            txtNombre.setText(deptoBD.getNombre());
+            txtDescripcion.setText(deptoBD.getDescripcion());
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontró el departamento en la base de datos.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public static Departamento buscarDepartamentoPorId(int idBuscado) {
+        Departamento departamento = null;
+        String sql = "SELECT id, nombre, descripcion FROM departamento WHERE id = ?";
+
+        try (Connection conn = ConexionDB.conectar(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, idBuscado);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                departamento = new Departamento();
+                departamento.setId(rs.getInt("id"));
+                departamento.setNombre(rs.getString("nombre"));
+                departamento.setDescripcion(rs.getString("descripcion"));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al buscar el departamento: " + e.getMessage());
+        }
+
+        return departamento;
     }
 
     @FXML

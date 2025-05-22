@@ -29,13 +29,13 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Text>
-      <TextField fx:id="txtDescripcion" layoutX="365.0" layoutY="146.0" prefHeight="26.0" prefWidth="287.0" />
+      <TextField fx:id="txtDescripcion" layoutX="365.0" layoutY="146.0" prefHeight="26.0" prefWidth="328.0" />
       <Text fill="WHITE" layoutX="365.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descripción:">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Text>
-      <TableView fx:id="tblDepartamentos" layoutX="77.0" layoutY="185.0" prefHeight="335.0" prefWidth="576.0">
+      <TableView fx:id="tblDepartamentos" layoutX="77.0" layoutY="185.0" prefHeight="335.0" prefWidth="618.0">
          <columns>
             <TableColumn fx:id="colId" prefWidth="66.0" text="Id" />
             <TableColumn fx:id="colNombre" prefWidth="218.0" text="Nombre del departamento" />

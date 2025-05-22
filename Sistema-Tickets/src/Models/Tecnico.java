@@ -14,7 +14,7 @@ import java.sql.PreparedStatement;
  */
 public class Tecnico extends Persona {
 
-    private int IdDepartamento;
+    private Integer IdDepartamento;
     private String nombreDepartamento;
 
     public String getNombreDepartamento() {
@@ -25,11 +25,11 @@ public class Tecnico extends Persona {
         this.nombreDepartamento = nombreDepartamento;
     }
 
-    public int getIdDepartamento() {
+    public Integer getIdDepartamento() {
         return IdDepartamento;
     }
 
-    public void setIdDepartamento(int IdDepartamento) {
+    public void setIdDepartamento(Integer IdDepartamento) {
         this.IdDepartamento = IdDepartamento;
     }
 
@@ -59,36 +59,10 @@ public class Tecnico extends Persona {
 
     }
 
-    /*
-    @Override
-    public void guardar(java.sql.Connection conexion) throws SQLException {
-        String sql = """
-        INSERT INTO persona 
-        (nombre, correo, id_rol, id_empresa, id_departamento, contrasenia,"user") 
-        VALUES (?, ?, ?, ?, ?, ?, ?)
-        """;
-
-        try (PreparedStatement stmt = conexion.prepareStatement(sql)) {
-
-            stmt.setString(1, this.getNombre());
-            stmt.setString(2, this.getCorreo());
-            stmt.setInt(3, this.getIdRol());
-            stmt.setInt(4, this.getIdEmpresa());
-            stmt.setInt(5, this.getIdDepartamento());
-            stmt.setString(6, this.getContraseña());
-            stmt.setString(7, this.getUser());
-
-            stmt.executeUpdate();
-
-        } catch (SQLException e) {
-            System.err.println("Error al guardar técnico: " + e.getMessage());
-            throw e;
-        }
-    }*/
     @Override
     public void guardar(java.sql.Connection conexion) throws SQLException {
         if (getId() == 0) {
-            // INSERT
+         
             String sql = """
         INSERT INTO persona 
         (nombre, correo, id_rol, id_empresa, id_departamento, contrasenia, "user") 
@@ -107,7 +81,7 @@ public class Tecnico extends Persona {
             }
 
         } else {
-            // UPDATE
+    
             String sql = """
         UPDATE persona SET 
             nombre = ?, correo = ?, id_rol = ?, id_empresa = ?, 

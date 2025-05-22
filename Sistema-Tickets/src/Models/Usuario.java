@@ -31,38 +31,14 @@ public class Usuario extends Persona {
         System.out.println("Consultando tickets de: " + getNombre());
     }
 
-    /*
-    @Override
-    public void guardar(java.sql.Connection conexion) throws SQLException {
-        String sql = """
-        INSERT INTO persona 
-        (nombre, correo, id_rol, id_empresa,  contrasenia, "user" ) 
-        VALUES (?, ?, ?, ?, ?, ?)
-        """;
-
-        try (PreparedStatement stmt = conexion.prepareStatement(sql)) {
-
-            stmt.setString(1, this.getNombre());
-            stmt.setString(2, this.getCorreo());
-            stmt.setInt(3, this.getIdRol());
-            stmt.setInt(4, this.getIdEmpresa());
-            stmt.setString(5, this.getContraseña());
-            stmt.setString(6, this.getUser());
-            stmt.executeUpdate();
-
-        } catch (SQLException e) {
-            System.err.println("Error al guardar técnico: " + e.getMessage());
-            throw e;
-        }
-    }
-     */
+  
     @Override
     public void guardar(java.sql.Connection conexion) throws SQLException {
         if (getId() == 0) {
             String sql = """
         INSERT INTO persona 
-        (nombre, correo, id_rol, id_empresa, contrasenia, "user") 
-        VALUES (?, ?, ?, ?, ?, ?)
+        (nombre, correo, id_rol, id_empresa, contrasenia, "user", id_departamento) 
+        VALUES (?, ?, ?, ?, ?, ?, NULL)
         """;
             try (PreparedStatement stmt = conexion.prepareStatement(sql)) {
                 stmt.setString(1, this.getNombre());
@@ -78,7 +54,7 @@ public class Usuario extends Persona {
             String sql = """
         UPDATE persona SET 
             nombre = ?, correo = ?, id_rol = ?, id_empresa = ?, 
-            contrasenia = ?, "user" = ?
+            id_departamento = NULL, contrasenia = ?, "user" = ?
         WHERE id = ?
         """;
             try (PreparedStatement stmt = conexion.prepareStatement(sql)) {

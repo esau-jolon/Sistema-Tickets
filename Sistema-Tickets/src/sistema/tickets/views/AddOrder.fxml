@@ -14,7 +14,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="579.0" prefWidth="869.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.tickets.controllers.AddOrderController">
    <children>
-      <ImageView fitHeight="631.0" fitWidth="883.0" layoutX="-4.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="631.0" fitWidth="916.0" layoutX="-4.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/3415537.jpg" />
          </image>
@@ -24,14 +24,13 @@
             <Font name="System Bold" size="25.0" />
          </font>
       </Label>
-      <TableView layoutX="87.0" layoutY="195.0" prefHeight="335.0" prefWidth="576.0">
+      <TableView fx:id="tblOrden" layoutX="87.0" layoutY="195.0" prefHeight="335.0" prefWidth="576.0">
          <columns>
-            <TableColumn prefWidth="66.0" text="Id" />
-            <TableColumn prefWidth="218.0" text="Estado siguiente" />
-            <TableColumn prefWidth="291.0" text="Orden" />
+            <TableColumn fx:id="colId" prefWidth="90.0" text="Id" />
+            <TableColumn fx:id="colNombre" prefWidth="485.0" text="Estado siguiente" />
          </columns>
       </TableView>
-      <Button layoutX="724.0" layoutY="195.0" mnemonicParsing="false" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
+      <Button fx:id="btnGuardar" layoutX="724.0" layoutY="195.0" mnemonicParsing="false" onAction="#btnGuardarAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="58.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -40,7 +39,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="725.0" layoutY="289.0" mnemonicParsing="false" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
+      <Button fx:id="btnEliminar" layoutX="725.0" layoutY="289.0" mnemonicParsing="false" onAction="#btnEliminarAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="58.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -63,12 +62,13 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Text>
-      <ComboBox layoutX="351.0" layoutY="124.0" prefHeight="25.0" prefWidth="197.0" />
+      <ComboBox fx:id="cmbEstados" layoutX="351.0" layoutY="124.0" prefHeight="25.0" prefWidth="286.0" />
       <Text fill="WHITE" layoutX="103.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estado Principal" wrappingWidth="203.0">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Text>
-      <TextField layoutX="351.0" layoutY="92.0" prefWidth="197.0" />
+      <TextField fx:id="txtEstado" layoutX="351.0" layoutY="92.0" prefHeight="25.0" prefWidth="286.0" />
+      <TextField fx:id="txtIdEstado" layoutX="103.0" layoutY="58.0" prefHeight="26.0" prefWidth="51.0" />
    </children>
 </AnchorPane>

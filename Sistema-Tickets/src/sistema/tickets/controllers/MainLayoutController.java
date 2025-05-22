@@ -36,4 +36,8 @@ public class MainLayoutController {
         }
     }
 
+    public void setVistaCentral(Node vista) {
+        contenidoCentral.getChildren().setAll(vista);
+    }
+
 }

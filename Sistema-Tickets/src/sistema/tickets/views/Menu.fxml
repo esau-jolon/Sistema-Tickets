@@ -20,7 +20,7 @@
             <Font name="System Bold" size="25.0" />
          </font>
       </Label>
-      <Button fx:id="btnUsers" layoutX="150.0" layoutY="122.0" mnemonicParsing="false" onAction="#btnUsersAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
+      <Button fx:id="btnUsers" layoutX="93.0" layoutY="123.0" mnemonicParsing="false" onAction="#btnUsersAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="81.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -29,12 +29,12 @@
             </ImageView>
          </graphic>
       </Button>
-      <Text fill="WHITE" layoutX="161.0" layoutY="234.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USUARIOS" wrappingWidth="74.13671875">
+      <Text fx:id="lblUsers" fill="WHITE" layoutX="104.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USUARIOS" wrappingWidth="74.13671875">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Text>
-      <Button fx:id="btnParameters" layoutX="293.0" layoutY="122.0" mnemonicParsing="false" onAction="#btnParametersAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
+      <Button fx:id="btnParameters" layoutX="709.0" layoutY="318.0" mnemonicParsing="false" onAction="#btnParametersAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="81.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -43,12 +43,12 @@
             </ImageView>
          </graphic>
       </Button>
-      <Text fill="WHITE" layoutX="293.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PARAMETROS" wrappingWidth="97.0">
+      <Text fx:id="lblParametros" fill="WHITE" layoutX="709.0" layoutY="429.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PARAMETROS" wrappingWidth="97.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Text>
-      <Button fx:id="btnRoles" layoutX="437.0" layoutY="122.0" mnemonicParsing="false" onAction="#btnRolesAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
+      <Button fx:id="btnRoles" layoutX="546.0" layoutY="325.0" mnemonicParsing="false" onAction="#btnRolesAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="81.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -57,12 +57,12 @@
             </ImageView>
          </graphic>
       </Button>
-      <Text fill="WHITE" layoutX="461.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ROLES" wrappingWidth="50.0">
+      <Text fx:id="lblRoles" fill="WHITE" layoutX="570.0" layoutY="434.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ROLES" wrappingWidth="50.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Text>
-      <Button fx:id="btnPermisos" layoutX="604.0" layoutY="129.0" mnemonicParsing="false" onAction="#btnPermisosAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
+      <Button fx:id="btnPermisos" layoutX="547.0" layoutY="130.0" mnemonicParsing="false" onAction="#btnPermisosAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="101.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -71,12 +71,12 @@
             </ImageView>
          </graphic>
       </Button>
-      <Text fill="WHITE" layoutX="615.0" layoutY="232.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PERMISOS" wrappingWidth="74.13671875">
+      <Text fx:id="lblPermisos" fill="WHITE" layoutX="557.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PERMISOS" wrappingWidth="74.13671875">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Text>
-      <Button fx:id="btnFlujos" layoutX="389.0" layoutY="318.0" mnemonicParsing="false" onAction="#btnFlujosAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
+      <Button fx:id="btnFlujos" layoutX="409.0" layoutY="315.0" mnemonicParsing="false" onAction="#btnFlujosAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="81.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -85,12 +85,12 @@
             </ImageView>
          </graphic>
       </Button>
-      <Text fill="WHITE" layoutX="400.0" layoutY="438.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FLUJOS DE TRABAJO" wrappingWidth="74.13671875">
+      <Text fx:id="lblFlujos" fill="WHITE" layoutX="420.0" layoutY="435.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FLUJOS DE TRABAJO" wrappingWidth="74.13671875">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Text>
-      <Button fx:id="btnResolverTicket" layoutX="534.0" layoutY="318.0" mnemonicParsing="false" onAction="#btnResolverTicketAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
+      <Button fx:id="btnResolverTicket" layoutX="388.0" layoutY="130.0" mnemonicParsing="false" onAction="#btnResolverTicketAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="81.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -99,7 +99,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Text fill="WHITE" layoutX="556.0" layoutY="429.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RESOLVER TICKETS" wrappingWidth="74.13671875">
+      <Text fx:id="lblResolver" fill="WHITE" layoutX="410.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RESOLVER TICKETS" wrappingWidth="74.13671875">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -113,7 +113,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Text fill="WHITE" layoutX="245.0" layoutY="437.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ESTADOS DE TICKET" wrappingWidth="97.0">
+      <Text fx:id="lblEstados" fill="WHITE" layoutX="245.0" layoutY="437.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ESTADOS DE TICKET" wrappingWidth="97.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -127,7 +127,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btnDepartamentos" layoutX="93.0" layoutY="318.0" mnemonicParsing="false" onAction="#btnDepartamentosAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
+      <Button fx:id="btnDepartamentos" layoutX="710.0" layoutY="123.0" mnemonicParsing="false" onAction="#btnDepartamentosAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="101.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -136,12 +136,12 @@
             </ImageView>
          </graphic>
       </Button>
-      <Text fill="WHITE" layoutX="77.0" layoutY="446.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DEPARTAMENTOS" wrappingWidth="129.0">
+      <Text fx:id="lblDepartamentos" fill="WHITE" layoutX="694.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DEPARTAMENTOS" wrappingWidth="129.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Text>
-      <Button fx:id="btnMisTIckets" layoutX="689.0" layoutY="325.0" mnemonicParsing="false" onAction="#btnMisTIcketsAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
+      <Button fx:id="btnMisTIckets" layoutX="249.0" layoutY="130.0" mnemonicParsing="false" onAction="#btnMisTIcketsAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="81.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -150,7 +150,21 @@
             </ImageView>
          </graphic>
       </Button>
-      <Text fill="WHITE" layoutX="689.0" layoutY="439.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MIS TICKETS" wrappingWidth="97.0">
+      <Text fx:id="lblMisTickets" fill="WHITE" layoutX="249.0" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MIS TICKETS" wrappingWidth="97.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Text>
+      <Button fx:id="btnGestion" layoutX="72.0" layoutY="325.0" mnemonicParsing="false" onAction="#btnGestionAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="101.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/gestion-de-proyectos.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Text fx:id="lblGestionTickets" fill="WHITE" layoutX="67.0" layoutY="429.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gestion de Tickets" wrappingWidth="129.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

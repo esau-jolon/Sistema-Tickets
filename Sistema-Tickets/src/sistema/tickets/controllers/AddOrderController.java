@@ -77,7 +77,7 @@ public class AddOrderController implements Initializable {
 
         Navegador.mostrarVistaCentral("/sistema/tickets/views/TicketStatus.fxml");
     }
-
+  
     @FXML
     private void btnEliminarAction(ActionEvent event) {
         Transicion transicionSeleccionada = tblOrden.getSelectionModel().getSelectedItem();
@@ -162,7 +162,7 @@ public class AddOrderController implements Initializable {
             e.printStackTrace();
         }
     }
-
+   
     private boolean guardarTransicionEstado(int estadoOrigenId, int estadoDestinoId) {
         String sqlInsert = "INSERT INTO estado_transicion (estado_origen_id, estado_destino_id) VALUES (?, ?)";
 
@@ -208,6 +208,10 @@ public class AddOrderController implements Initializable {
         cargarTransiciones(Integer.parseInt(txtIdEstado.getText()));
     }
 
+    
+  
+
+    
     @FXML
     private void handleMouseEntered(MouseEvent event) {
         Button sourceButton = (Button) event.getSource();

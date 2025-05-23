@@ -4,35 +4,40 @@
  */
 package Models;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-
 /**
  *
  * @author esauj
  */
-public class Permiso {
-
+public class Flujo {
     private int id;
     private String nombre;
     private String descripcion;
+    private String reglas;
 
-    private BooleanProperty asignado = new SimpleBooleanProperty(false);
+    public Flujo() {
+    }
+
+    public Flujo(int id, String nombre, String descripcion, String reglas) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.reglas = reglas;
+    }
+
+    public String getReglas() {
+        return reglas;
+    }
+
+    public void setReglas(String reglas) {
+        this.reglas = reglas;
+    }
 
     public int getId() {
         return id;
     }
 
-    public Permiso(int id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
-    }
-
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Permiso() {
     }
 
     public String getNombre() {
@@ -50,17 +55,5 @@ public class Permiso {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-
-    public BooleanProperty asignadoProperty() {
-        return asignado;
-    }
-
-    public boolean isAsignado() {
-        return asignado.get();
-    }
-
-    public void setAsignado(boolean value) {
-        asignado.set(value);
-    }
-
+    
 }

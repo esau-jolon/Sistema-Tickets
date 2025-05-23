@@ -24,22 +24,5 @@ public class SesionActual {
     public static boolean tienePermiso(int idPermiso) {
         return permisosId.contains(idPermiso);
     }
-/*
-    public List<Integer> obtenerPermisosPorRol(int rolId) {
-        List<Integer> permisos = new ArrayList<>();
-        String sql = "SELECT permiso_id FROM rol_permiso WHERE rol_id = ? AND stat = true";
 
-        try (Connection conn = ConexionDB.(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, rolId);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                permisos.add(rs.getInt("permiso_id"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(); // o usa un logger
-        }
-
-        return permisos;
-    }
-*/
 }

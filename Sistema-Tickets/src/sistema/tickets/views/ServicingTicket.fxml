@@ -9,44 +9,53 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="685.0" prefWidth="988.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="sistema.tickets.controllers.ServicingTicketController">
+<AnchorPane id="AnchorPane" prefHeight="579.0" prefWidth="869.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.tickets.controllers.ServicingTicketController">
    <children>
-      <ImageView fitHeight="744.0" fitWidth="1036.0" layoutX="-6.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="619.0" fitWidth="960.0" layoutX="-6.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/3415537.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="328.0" layoutY="45.0" prefHeight="36.0" prefWidth="232.0" text="RESOLVER TICKET" textAlignment="CENTER" textFill="WHITE">
+      <Label layoutX="297.0" layoutY="26.0" prefHeight="36.0" prefWidth="232.0" text="RESOLVER TICKET" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="System Bold" size="25.0" />
          </font>
       </Label>
-      <TableView layoutX="37.0" layoutY="120.0" prefHeight="477.0" prefWidth="871.0">
-         <columns>
-            <TableColumn prefWidth="54.0" text="ID" />
-            <TableColumn prefWidth="113.0" text="Titulo" />
-            <TableColumn prefWidth="147.0" text="Descripcion" />
-            <TableColumn prefWidth="163.0" text="Descripcion" />
-            <TableColumn prefWidth="141.0" text="Departamento" />
-            <TableColumn prefWidth="146.0" text="Estado" />
-            <TableColumn prefWidth="105.0" text="Prioridad" />
-         </columns>
-      </TableView>
-      <Button layoutX="929.0" layoutY="120.0" mnemonicParsing="false" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" prefHeight="70.0" prefWidth="84.0" style="-fx-background-color: transparent;">
+      <Button fx:id="btnChange" layoutX="619.0" layoutY="64.0" mnemonicParsing="false" onAction="#btnChangeAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" prefHeight="70.0" prefWidth="84.0" style="-fx-background-color: transparent;">
          <graphic>
-            <ImageView fitHeight="58.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="51.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/operation.png" />
+                  <Image url="@../images/change-management.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btnClose" layoutX="939.0" layoutY="39.0" mnemonicParsing="false" onAction="#btnCloseAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" prefHeight="52.0" prefWidth="63.0" style="-fx-background-color: transparent;">
+      <Button fx:id="btnClose" layoutX="770.0" layoutY="36.0" mnemonicParsing="false" onAction="#btnCloseAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" prefHeight="52.0" prefWidth="63.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="42.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/cross.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <TableView fx:id="tblTickets" layoutX="27.0" layoutY="135.0" prefHeight="442.0" prefWidth="867.0">
+         <columns>
+            <TableColumn fx:id="colId" prefWidth="30.0" text="ID" />
+            <TableColumn fx:id="colTitulo" prefWidth="126.0" text="Titulo" />
+            <TableColumn fx:id="colDescripcion" prefWidth="114.0" text="Descripcion" />
+            <TableColumn fx:id="colFecha" prefWidth="122.0" text="Fecha Crea." />
+            <TableColumn fx:id="colDepartamento" prefWidth="112.0" text="Departamento" />
+            <TableColumn fx:id="colEstado" prefWidth="100.0" text="Estado" />
+            <TableColumn fx:id="colPrioridad" prefWidth="124.0" text="Prioridad" />
+            <TableColumn fx:id="colTecnico" prefWidth="157.0" text="Tecnico Asig." />
+         </columns>
+      </TableView>
+      <Button fx:id="btnNotas" layoutX="523.0" layoutY="64.0" mnemonicParsing="false" onAction="#btnNotasAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" prefHeight="70.0" prefWidth="84.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="51.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/publicalo.png" />
                </image>
             </ImageView>
          </graphic>

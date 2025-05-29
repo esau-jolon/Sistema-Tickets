@@ -39,6 +39,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.sql.Timestamp;
 import java.sql.ResultSet;
+
 /**
  * FXML Controller class
  *
@@ -70,6 +71,22 @@ public class NotasController implements Initializable {
     private TableColumn<NotaTicket, String> colFecha;
     @FXML
     private TableColumn<NotaTicket, String> colAutor;
+
+    @FXML
+    private TableView<HistorialEstado> tblHistorial;
+
+    @FXML
+    private TableColumn<HistorialEstado, Integer> colIdC;
+    @FXML
+    private TableColumn<HistorialEstado, String> colNuevo;
+    @FXML
+    private TableColumn<HistorialEstado, String> colAnterior;
+    @FXML
+    private TableColumn<HistorialEstado, String> colComentario;
+    @FXML
+    private TableColumn<HistorialEstado, String> colFechaC;
+    @FXML
+    private TableColumn<HistorialEstado, String> colCambiado;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

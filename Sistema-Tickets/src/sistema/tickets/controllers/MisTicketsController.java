@@ -229,4 +229,23 @@ public class MisTicketsController implements Initializable {
         }
     }
 
+    @FXML
+    private void btnViewAction(ActionEvent event) throws IOException {
+        Ticket ticketSeleccionado = tblTickets.getSelectionModel().getSelectedItem();
+
+        if (ticketSeleccionado == null) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un ticket para continuar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int idTicket = ticketSeleccionado.getId();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sistema/tickets/views/ItemsTicket.fxml"));
+        Parent root = loader.load();
+
+        ItemsTicketController controller = loader.getController();
+        controller.setIdTicket(idTicket);
+
+        Navegador.mostrarVistaCentral(root);
+
+    }
 }

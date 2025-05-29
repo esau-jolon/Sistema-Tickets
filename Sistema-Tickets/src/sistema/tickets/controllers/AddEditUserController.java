@@ -30,6 +30,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
+import sistema.tickets.EnvioCorreo;
 import sistema.tickets.Navegador;
 
 /**
@@ -113,7 +114,6 @@ public class AddEditUserController implements Initializable {
         sourceButton.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;");
     }
 
-   
     @FXML
     private void btnActionSave(ActionEvent event) {
         try {
@@ -184,8 +184,6 @@ public class AddEditUserController implements Initializable {
             rol.setId(idRol);
 
             Persona persona;
-
-            // ✅ Siempre construir una nueva instancia con el rol actual
             persona = PersonaBuilder.crearPersona(rol, idDepartamento);
 
             if (!idTexto.isEmpty()) {
@@ -200,12 +198,21 @@ public class AddEditUserController implements Initializable {
             persona.setIdEmpresa(idEmpresa);
             persona.setRol(rol);
 
-            // Asignar departamento solo si es técnico
             if (persona instanceof Tecnico) {
                 ((Tecnico) persona).setIdDepartamento(idDepartamento);
             }
 
             persona.guardar();
+
+            // ?Enviar correo solo si el usuario es nuevo
+            if (idTexto.isEmpty()) {
+                try {
+                    EnvioCorreo.enviarCredenciales(correo, user, password);
+                } catch (Exception ex) {
+                    System.err.println("No se pudo enviar el correo: " + ex.getMessage());
+                    mostrarAlerta("Aviso", "Usuario creado, pero no se pudo enviar el correo.");
+                }
+            }
 
             mostrarAlerta("Éxito", idTexto.isEmpty() ? "Usuario creado correctamente" : "Usuario actualizado correctamente");
             limpiarCampos();

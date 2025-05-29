@@ -36,6 +36,7 @@ import java.sql.Timestamp;
 import java.util.Optional;
 import java.util.Stack;
 import javafx.scene.control.ButtonType;
+import sistema.tickets.EnvioCorreo;
 
 /**
  * FXML Controller class
@@ -109,6 +110,7 @@ public class ResolverController implements Initializable {
         try (Connection conn = ConexionDB.conectar()) {
             conn.setAutoCommit(false);
 
+            // Insertar historial de transición
             String sqlInsert = "INSERT INTO historial_estado (ticket_id, estado_anterior, nuevo_estado, comentario, cambiado_por) VALUES (?, ?, ?, ?, ?)";
             try (PreparedStatement stmt = conn.prepareStatement(sqlInsert)) {
                 stmt.setInt(1, ticketId);
@@ -119,6 +121,7 @@ public class ResolverController implements Initializable {
                 stmt.executeUpdate();
             }
 
+            // Actualizar estado del ticket
             String sqlUpdate = "UPDATE ticket SET id_estado = ? WHERE id = ?";
             try (PreparedStatement stmtUpdate = conn.prepareStatement(sqlUpdate)) {
                 stmtUpdate.setInt(1, nuevoEstadoId);
@@ -126,7 +129,31 @@ public class ResolverController implements Initializable {
                 stmtUpdate.executeUpdate();
             }
 
+            // Obtener correo del usuario dueño del ticket y nombre del nuevo estado
+            String sqlCorreo = """
+            SELECT p.correo, e.nombre AS nuevo_estado
+            FROM ticket t
+            JOIN persona p ON t.id_usuario = p.id
+            JOIN estado e ON e.id = ?
+            WHERE t.id = ?
+        """;
+            try (PreparedStatement stmtCorreo = conn.prepareStatement(sqlCorreo)) {
+                stmtCorreo.setInt(1, nuevoEstadoId);
+                stmtCorreo.setInt(2, ticketId);
+
+                try (ResultSet rs = stmtCorreo.executeQuery()) {
+                    if (rs.next()) {
+                        String correoDestino = rs.getString("correo");
+                        String nombreNuevoEstado = rs.getString("nuevo_estado");
+
+                        // Enviar correo
+                        EnvioCorreo.enviarNotificacionCambioEstado(correoDestino, ticketId, nombreNuevoEstado);
+                    }
+                }
+            }
+
             conn.commit();
+
             mostrarAlerta("Éxito", "Transición de estado guardada correctamente.", Alert.AlertType.INFORMATION);
             cargarHistorialEstado();
 
@@ -135,6 +162,7 @@ public class ResolverController implements Initializable {
             mostrarAlerta("Error", "Error al guardar la transición: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
+
     /*
     @FXML
     private void btnEliminarAction(ActionEvent event) {
@@ -182,7 +210,6 @@ public class ResolverController implements Initializable {
         }
     }
      */
-
     @FXML
     private Stack<HistorialEstado> pilaEliminados = new Stack<>();
 

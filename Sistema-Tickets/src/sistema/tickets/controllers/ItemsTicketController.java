@@ -179,62 +179,7 @@ public class ItemsTicketController implements Initializable {
         tblHistorial.setItems(listaHistorial);
     }
 
-    /*
-    @FXML
-    private void cargarNotas() {
-        ObservableList<NotaTicket> listaNotas = FXCollections.observableArrayList();
-
-        String sql = """
-        SELECT n.id, n.ticket_id, n.descripcion, n.archivo, n.tipo_mime, n.fecha, n.autor_id,
-               p.nombre AS nombre_autor
-        FROM nota_ticket n
-        JOIN persona p ON n.autor_id = p.id
-        WHERE n.ticket_id = ?
-        ORDER BY n.fecha DESC
-    """;
-
-        try (Connection conn = ConexionDB.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            int ticketId = Integer.parseInt(txtIdTIcket.getText());
-            stmt.setInt(1, ticketId);
-
-            try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    NotaTicket nota = new NotaTicket(
-                            rs.getInt("id"),
-                            rs.getInt("ticket_id"),
-                            rs.getString("descripcion"),
-                            rs.getBytes("archivo"),
-                            rs.getString("tipo_mime"),
-                            rs.getTimestamp("fecha"),
-                            rs.getInt("autor_id")
-                    );
-
-                    // Campos opcionales
-                    nota.setNombreArchivo("Archivo adjunto");
-                    nota.setNombreAutor(rs.getString("nombre_autor"));
-
-                    listaNotas.add(nota);
-                }
-            }
-
-        } catch (SQLException | NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar notas.", "Error", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
-        }
-
-        // Configurar columnas (¡corrige los tipos! estás usando tipos de `HistorialEstado`)
-        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
-        colArchivo.setCellValueFactory(new PropertyValueFactory<>("nombreArchivo"));
-        colFecha.setCellValueFactory(cell -> {
-            Timestamp ts = cell.getValue().getFecha();
-            return new SimpleStringProperty(ts != null ? ts.toLocalDateTime().toString() : "");
-        });
-        colAutor.setCellValueFactory(new PropertyValueFactory<>("nombreAutor"));
-
-        tblNotas.setItems(listaNotas);
-    }
-     */
+    
     @FXML
     private void cargarNotas() {
         ObservableList<NotaTicket> listaNotas = FXCollections.observableArrayList();

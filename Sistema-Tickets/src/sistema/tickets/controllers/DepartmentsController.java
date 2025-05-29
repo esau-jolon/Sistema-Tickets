@@ -86,7 +86,7 @@ public class DepartmentsController implements Initializable {
         String nombre = txtNombre.getText().trim();
         String descripcion = txtDescripcion.getText().trim();
         String idTexto = txtId.getText().trim();
-        int idEmpresa = 1; 
+        int idEmpresa = 1;
 
         if (nombre.isEmpty() || descripcion.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor completa todos los campos.",
@@ -176,7 +176,6 @@ public class DepartmentsController implements Initializable {
 
         int idDepartamento = deptoSeleccionado.getId();
 
-    
         String sqlVerificarTickets = "SELECT COUNT(*) FROM ticket WHERE id_departamento = ?";
         try (Connection conn = ConexionDB.conectar(); PreparedStatement pstmtTickets = conn.prepareStatement(sqlVerificarTickets)) {
 
@@ -220,15 +219,13 @@ public class DepartmentsController implements Initializable {
             String sqlEliminarDepartamento = "DELETE FROM departamento WHERE id = ?";
 
             try (Connection conn = ConexionDB.conectar()) {
-                conn.setAutoCommit(false); 
+                conn.setAutoCommit(false);
 
-            
                 try (PreparedStatement pstmtCola = conn.prepareStatement(sqlEliminarCola)) {
                     pstmtCola.setInt(1, idDepartamento);
                     pstmtCola.executeUpdate();
                 }
 
-           
                 try (PreparedStatement pstmtEliminar = conn.prepareStatement(sqlEliminarDepartamento)) {
                     pstmtEliminar.setInt(1, idDepartamento);
                     int filasEliminadas = pstmtEliminar.executeUpdate();
@@ -253,7 +250,7 @@ public class DepartmentsController implements Initializable {
 
     @FXML
     private void btnEditarAction(ActionEvent event) {
-   
+
         Departamento deptoSeleccionado = tblDepartamentos.getSelectionModel().getSelectedItem();
 
         if (deptoSeleccionado == null) {
@@ -262,13 +259,12 @@ public class DepartmentsController implements Initializable {
             return;
         }
 
-        int id = deptoSeleccionado.getId(); 
+        int id = deptoSeleccionado.getId();
 
-    
-        Departamento deptoBD = buscarDepartamentoPorId(id); 
+        Departamento deptoBD = buscarDepartamentoPorId(id);
 
         if (deptoBD != null) {
-         
+
             txtId.setText(String.valueOf(deptoBD.getId()));
             txtNombre.setText(deptoBD.getNombre());
             txtDescripcion.setText(deptoBD.getDescripcion());
@@ -314,20 +310,24 @@ public class DepartmentsController implements Initializable {
     }
 
     @FXML
-    private void btnAddTecnicoAction(ActionEvent event) {
-        try {
-            // Cargar la nueva vista
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sistema/tickets/views/AddTechnical.fxml"));
-            Parent root = loader.load();
+    private void btnAddTecnicoAction(ActionEvent event) throws IOException {
+        Departamento departamentoSeleccionado = tblDepartamentos.getSelectionModel().getSelectedItem();
 
-            // Crear una nueva ventana (Stage)
-            Stage newStage = new Stage();
-            newStage.setScene(new Scene(root));
-            newStage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (departamentoSeleccionado == null) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un departamento para continuar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
         }
+
+        int idDepartamento = departamentoSeleccionado.getId();
+        String nombreDepartamento = departamentoSeleccionado.getNombre();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sistema/tickets/views/AddTechnical.fxml"));
+        Parent root = loader.load();
+
+        AddTechnicalController controller = loader.getController();
+        controller.setDatosDepartamento(idDepartamento, nombreDepartamento);
+
+        Navegador.mostrarVistaCentral(root);
     }
 
     private void cargarDatos() {

@@ -11,9 +11,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.tickets.controllers.AddTechnicalController">
+<AnchorPane id="AnchorPane" prefHeight="579.0" prefWidth="869.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.tickets.controllers.AddTechnicalController">
    <children>
-      <ImageView fitHeight="588.0" fitWidth="828.0" layoutX="-14.0" layoutY="-19.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="640.0" fitWidth="924.0" layoutX="-14.0" layoutY="-19.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/3415537.jpg" />
          </image>
@@ -23,30 +23,14 @@
             <Font name="System Bold" size="25.0" />
          </font>
       </Label>
-      <TextField layoutX="103.0" layoutY="113.0" prefHeight="25.0" prefWidth="180.0" />
+      <TextField fx:id="txtDepartamento" layoutX="103.0" layoutY="113.0" prefHeight="25.0" prefWidth="304.0" />
       <Text fill="WHITE" layoutX="103.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Departamento:">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Text>
-      <Button layoutX="700.0" layoutY="203.0" mnemonicParsing="false" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
-         <graphic>
-            <ImageView fitHeight="58.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/save.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Button layoutX="700.0" layoutY="304.0" mnemonicParsing="false" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;">
-         <graphic>
-            <ImageView fitHeight="58.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/delete.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
+      <Button layoutX="700.0" layoutY="203.0" mnemonicParsing="false" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;" />
+      <Button layoutX="700.0" layoutY="304.0" mnemonicParsing="false" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" style="-fx-background-color: transparent;" />
       <Button fx:id="btnClose" layoutX="709.0" layoutY="40.0" mnemonicParsing="false" onAction="#btnCloseAction" onMouseEntered="#handleMouseEntered" onMouseExited="#handleMouseExited" prefHeight="52.0" prefWidth="63.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="42.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
@@ -56,12 +40,12 @@
             </ImageView>
          </graphic>
       </Button>
-      <TableView layoutX="103.0" layoutY="182.0" prefHeight="310.0" prefWidth="539.0">
+      <TableView fx:id="tblTecnicos" layoutX="103.0" layoutY="182.0" prefHeight="339.0" prefWidth="681.0">
          <columns>
-            <TableColumn prefWidth="81.0" text="Id" />
-            <TableColumn prefWidth="457.0" text="Tecnico Asignado" />
+            <TableColumn fx:id="colId" prefWidth="81.0" text="Id" />
+            <TableColumn fx:id="colNombre" prefWidth="599.0" text="Tecnico Asignado" />
          </columns>
       </TableView>
-      <TextField layoutX="93.0" layoutY="36.0" prefHeight="25.0" prefWidth="74.0" />
+      <TextField fx:id="txtIdDepartamento" layoutX="93.0" layoutY="36.0" prefHeight="25.0" prefWidth="74.0" />
    </children>
 </AnchorPane>
